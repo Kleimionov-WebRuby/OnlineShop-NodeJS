@@ -1,7 +1,13 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+require('./connection');
 
 const app = express();
 
-app.listen(8080, () => {
-  console.log('Server is listening 8080');
+app.use(bodyParser.json());
+
+const port = 8080;
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
 });
