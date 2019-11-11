@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'roleId',
       onDelete: 'CASCADE',
     });
+    User.hasMany(models.Rating, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
   };
   return User;
 };

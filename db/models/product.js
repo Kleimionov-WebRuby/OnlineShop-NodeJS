@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
     },
   });
-
+  Product.associate = models => {
+    Product.hasMany(models.Rating, {
+      foreignKey: 'productId',
+      as: 'products',
+    });
+  };
   return Product;
 };
