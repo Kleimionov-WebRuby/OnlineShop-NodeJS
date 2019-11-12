@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Rating.associate = models => {
-    Rating.belongsTo(models.Users, {
-      foreignKey: 'userId',
-      as: 'users',
-    });
+    // Rating.belongsTo(models.Users, {
+    //   foreignKey: 'userId',
+    //   as: 'users',
+    // });
     Rating.belongsTo(models.Product, {
       foreignKey: 'productId',
       as: 'products',
