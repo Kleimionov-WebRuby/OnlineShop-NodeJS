@@ -1,9 +1,7 @@
 const User = require('../db/models').User;
 const Role = require('../db/models').Role;
 
-async function hashPassword(password) {
-  return await bcrypt.hash(password, 10);
-}
+const hashPassword = require('../core/hashPassword');
 
 module.exports = {
   async create(req, res) {
@@ -13,9 +11,6 @@ module.exports = {
       const userFullName = req.body.fullname;
       const userEmail = req.body.email;
       const userPassword = req.body.password;
-
-      const hashedPassword = hashPassword(userPassword);
-      console.log(hashedPassword);
 
       if (!userFullName || !userEmail || !userPassword) {
         return res.status(400).send({ message: 'Check your fields. Maybe some of them are empty' });
@@ -27,15 +22,17 @@ module.exports = {
         return res.status(400).send({ message: 'User with this Email already exists' });
       }
 
-      const role = await Role.findOne({ where: { role: 'user' } });
-      const roleId = role.id;
-
       const userCollection = {
         fullname: userFullName,
         email: userEmail,
-        password: userPassword,
-        RoleId: roleId,
       };
+
+      const role = await Role.findOne({ where: { role: 'user' } });
+      userCollection.RoleId = role.id;
+
+      await hashPassword(userPassword).then(hashedPassword => {
+        userCollection.password = hashedPassword;
+      });
 
       const user = await User.create(userCollection);
 
