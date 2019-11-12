@@ -18,7 +18,7 @@ Or [Download the latest release.](https://github.com/Kleimionov-WebRuby/OnlineSh
 
 ##### Nodemon
 
-First of all need to install Nodemon
+First of all need to install `nodemon`
 
 Nodemon is a utility that will monitor for any changes in your source and automatically restart your server. Perfect for development. Install it using npm.
 
@@ -42,7 +42,7 @@ Application requires [Node.js](https://nodejs.org/) v4+ to run.
 
 ##### Database
 
-Install the sequelize cli for support ORM command
+Install the `sequelize cli` for support ORM command
 
 ```sh
 $ npm install -g sequelize-cli

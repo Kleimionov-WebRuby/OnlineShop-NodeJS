@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isEmail: true,
-        domainChecks: true,
       },
     },
     password: {
@@ -32,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = models => {
     User.belongsTo(models.Role, {
-      foreignKey: 'roleId',
-      onDelete: 'CASCADE',
+      foreignKey: 'RoleId',
+      as: 'roles',
     });
     User.hasMany(models.Rating, {
       foreignKey: 'userId',
