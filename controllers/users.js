@@ -13,13 +13,17 @@ module.exports = {
       const userPassword = req.body.password;
 
       if (!userFullName || !userEmail || !userPassword) {
-        return res.status(400).send({ message: 'Check your fields. Maybe some of them are empty' });
+        return res
+          .status(400)
+          .send({ message: 'Check your fields. Maybe some of them are empty' });
       }
 
       const oldUser = await User.findOne({ where: { email: userEmail } });
 
       if (oldUser !== null) {
-        return res.status(400).send({ message: 'User with this Email already exists' });
+        return res
+          .status(400)
+          .send({ message: 'User with this Email already exists' });
       }
 
       const userCollection = {
@@ -36,7 +40,7 @@ module.exports = {
 
       const user = await User.create(userCollection);
 
-      res.status(201).send(userCollection);
+      res.status(201).send(user);
     } catch (error) {
       console.log(error);
       res.status(400).send(error);

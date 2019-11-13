@@ -15,13 +15,13 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       picture: {
         type: Sequelize.STRING,
       },
       amount: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
