@@ -36,7 +36,7 @@ module.exports = {
 
       const user = await User.create(userCollection);
 
-      res.status(201).send(user);
+      res.status(201).send(userCollection);
     } catch (error) {
       console.log(error);
       res.status(400).send(error);
