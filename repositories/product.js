@@ -13,6 +13,12 @@ class productRepository {
     return Product.create(product);
   }
 
+  update(id, product) {
+    return Product.update(product, {
+      where: { id },
+    });
+  }
+
   delete(id) {
     return Product.destroy({
       where: { id },

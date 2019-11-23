@@ -18,6 +18,17 @@ class productController {
     }
   }
 
+  async updateProduct(req, res) {
+    try {
+      const { id } = req.params;
+      const result = await productService.updateProduct(id, req.body);
+
+      res.status(200).send(responseFormat(result));
+    } catch (err) {
+      res.status(400).send(responseFormat(err.message));
+    }
+  }
+
   async deleteProduct(req, res) {
     try {
       const { id } = req.params;
