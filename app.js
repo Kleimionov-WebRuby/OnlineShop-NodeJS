@@ -6,12 +6,16 @@ const config = require('./config');
 const app = express();
 
 const runApp = async () => {
-  await database.connectToDB();
-  initLoader(app);
+  try {
+    await database.connectToDB();
+    initLoader(app);
 
-  app.listen(config.port, () => {
-    console.log(`Server listening on port ${config.port}`);
-  });
+    app.listen(config.port, () => {
+      console.log(`Server listening on port ${config.port}`);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 runApp();
