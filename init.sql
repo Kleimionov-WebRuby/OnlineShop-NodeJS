@@ -33,8 +33,8 @@ CREATE TABLE `products` (
 	`price` float NOT NULL,
 	`picture` varchar(255) NOT NULL,
 	`amount` int NOT NULL,
-	`create_at` date NOT NULL,
-	`update_at` date NOT NULL,
+	`created_at` date NOT NULL,
+	`updated_at` date NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
