@@ -5,12 +5,16 @@ class productService {
     return await productRepository.getAll();
   }
 
+  async createProduct(newProduct) {
+    return await productRepository.create(newProduct);
+  }
+
   async deleteProduct(id) {
     const product = await productRepository.get(id);
 
     if (!product) {
       throw new Error(
-        "Sorry, this product is not found. You can't delete this product, because it doesn't exists",
+        "Sorry, this product is not found. You can't delete this product, because it doesn't exists.",
       );
     }
 

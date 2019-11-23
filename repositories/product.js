@@ -9,6 +9,10 @@ class productRepository {
     return Product.findByPk(id);
   }
 
+  create(product) {
+    return Product.create(product);
+  }
+
   delete(id) {
     return Product.destroy({
       where: { id },
