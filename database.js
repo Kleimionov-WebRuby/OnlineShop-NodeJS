@@ -9,6 +9,9 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     dialect: config.dialect,
+    define: {
+      timestamps: false,
+    },
   },
 );
 
