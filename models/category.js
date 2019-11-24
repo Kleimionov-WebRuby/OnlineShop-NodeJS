@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
 
-const Role = sequelize.define('roles', {
+const Category = sequelize.define('categories', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -9,12 +9,12 @@ const Role = sequelize.define('roles', {
     allowNull: false,
     unique: true,
   },
-  roleName: {
+  categoryName: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
-    field: 'role_name',
+    field: 'category_name',
   },
 });
 
-module.exports = Role;
+module.exports = Category;
