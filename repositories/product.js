@@ -1,8 +1,17 @@
 const Product = require('../models/product');
+const Category = require('../models/category');
 
 class productRepository {
   getAll() {
-    return Product.findAll();
+    return Product.findAll({
+      attributes: ['id', 'title', 'desc', 'price', 'picture', 'amount'],
+      include: [
+        {
+          model: Category,
+          attributes: ['id', 'categoryName'],
+        },
+      ],
+    });
   }
 
   get(id) {

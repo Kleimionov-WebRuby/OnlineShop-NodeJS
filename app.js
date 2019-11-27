@@ -1,18 +1,12 @@
-const express = require('express');
 const database = require('./database');
-const initLoader = require('./loaders');
-const config = require('./config');
-
-const app = express();
+const initModels = require('./models');
+const server = require('./server');
 
 const runApp = async () => {
   try {
     await database.connectToDB();
-    initLoader(app);
-
-    app.listen(config.port, () => {
-      console.log(`Server listening on port ${config.port}`);
-    });
+    initModels();
+    server.start();
   } catch (err) {
     console.log(err);
   }
