@@ -1,6 +1,6 @@
 const Category = require('../models/category');
 
-class categoryRepository {
+class CategoryRepository {
   getAll() {
     return Category.findAll();
   }
@@ -22,4 +22,4 @@ class categoryRepository {
   }
 }
 
-module.exports = new categoryRepository();
+module.exports = new CategoryRepository();

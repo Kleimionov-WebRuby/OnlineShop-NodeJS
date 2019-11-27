@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const Category = require('../models/category');
 
-class productRepository {
+class ProductRepository {
   getAll() {
     return Product.findAll({
       attributes: ['id', 'title', 'desc', 'price', 'picture', 'amount'],
@@ -35,4 +35,4 @@ class productRepository {
   }
 }
 
-module.exports = new productRepository();
+module.exports = new ProductRepository();

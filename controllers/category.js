@@ -1,15 +1,15 @@
-const categoryService = require('../services/category');
+const CategoryService = require('../services/category');
 const responseFormat = require('../middlewares/response-format');
 
-class categoryController {
+class CategoryController {
   async getCategories(req, res) {
-    const categories = await categoryService.getCategories();
+    const categories = await CategoryService.getCategories();
 
     res.status(200).send(categories);
   }
 
   async createCategory(req, res) {
-    const category = await categoryService.createCategory(req.body);
+    const category = await CategoryService.createCategory(req.body);
 
     res.status(200).send(category);
   }
@@ -17,7 +17,7 @@ class categoryController {
   async updateCategory(req, res) {
     try {
       const { id } = req.params;
-      const result = await categoryService.updateCategory(id, req.body);
+      const result = await CategoryService.updateCategory(id, req.body);
 
       res.status(200).send(responseFormat(result));
     } catch (err) {
@@ -28,7 +28,7 @@ class categoryController {
   async deleteCategory(req, res) {
     try {
       const { id } = req.params;
-      const result = await categoryService.deleteCategory(id);
+      const result = await CategoryService.deleteCategory(id);
 
       res.status(200).send(responseFormat(result));
     } catch (err) {
@@ -39,4 +39,4 @@ class categoryController {
   }
 }
 
-module.exports = new categoryController();
+module.exports = new CategoryController();
