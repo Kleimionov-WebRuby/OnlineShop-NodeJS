@@ -1,16 +1,18 @@
 const ProductService = require('../services/product');
 const responseFormat = require('../middlewares/response-format');
 
+const productService = new ProductService();
+
 class ProductController {
   async getProducts(req, res) {
-    const products = await ProductService.getProducts();
+    const products = await productService.getProducts();
 
     res.status(200).send(products);
   }
 
   async createProduct(req, res) {
     try {
-      const result = await ProductService.createProduct(req.body);
+      const result = await productService.createProduct(req.body);
 
       res.status(200).send(result);
     } catch (err) {
@@ -21,7 +23,7 @@ class ProductController {
   async updateProduct(req, res) {
     try {
       const { id } = req.params;
-      const result = await ProductService.updateProduct(id, req.body);
+      const result = await productService.updateProduct(id, req.body);
 
       res.status(200).send(responseFormat(result));
     } catch (err) {
@@ -32,7 +34,7 @@ class ProductController {
   async deleteProduct(req, res) {
     try {
       const { id } = req.params;
-      const result = await ProductService.deleteProduct(id);
+      const result = await productService.deleteProduct(id);
 
       res.status(200).send(responseFormat(result));
     } catch (err) {
@@ -41,4 +43,4 @@ class ProductController {
   }
 }
 
-module.exports = new ProductController();
+module.exports = ProductController;

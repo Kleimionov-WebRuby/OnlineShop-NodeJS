@@ -1,16 +1,18 @@
 const ProductRepository = require('../repositories/product');
 
+const productRepository = new ProductRepository();
+
 class ProductService {
   async getProducts() {
-    return await ProductRepository.getAll();
+    return await productRepository.getAll();
   }
 
   async createProduct(newProduct) {
-    return await ProductRepository.create(newProduct);
+    return await productRepository.create(newProduct);
   }
 
   async updateProduct(id, updatedProduct) {
-    const product = await ProductRepository.get(id);
+    const product = await productRepository.get(id);
 
     if (!product) {
       throw new Error(
@@ -20,12 +22,12 @@ class ProductService {
 
     updatedProduct.updatedAt = new Date();
 
-    await ProductRepository.update(id, updatedProduct);
+    await productRepository.update(id, updatedProduct);
     return await 'Product successfully updated';
   }
 
   async deleteProduct(id) {
-    const product = await ProductRepository.get(id);
+    const product = await productRepository.get(id);
 
     if (!product) {
       throw new Error(
@@ -33,9 +35,9 @@ class ProductService {
       );
     }
 
-    await ProductRepository.delete(id);
+    await productRepository.delete(id);
     return await 'Product successfully deleted';
   }
 }
 
-module.exports = new ProductService();
+module.exports = ProductService;
