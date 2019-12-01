@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
 
+const Hash = require('../helpers/hash');
+const hash = new Hash();
+
 const User = sequelize.define('users', {
   id: {
     type: Sequelize.INTEGER,
@@ -44,5 +47,13 @@ const User = sequelize.define('users', {
     allowNull: false,
   },
 });
+
+User.prototype.validPassword = async function(password) {
+  return await hash.compare(password, this.password);
+};
+
+User.beforeCreate(
+  async user => (user.password = await hash.hash(user.password)),
+);
 
 module.exports = User;
