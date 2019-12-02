@@ -9,6 +9,7 @@ class ProductRepository {
         {
           model: Category,
           attributes: ['id', 'categoryName'],
+          through: { attributes: [] },
         },
       ],
     });

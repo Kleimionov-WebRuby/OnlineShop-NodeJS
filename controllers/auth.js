@@ -14,12 +14,12 @@ class AuthController {
 
       await req.login(user, err => {
         if (err) {
-          next(new CustomError(err));
+          next(new CustomError(err, 401));
         }
         res.send(user);
       });
     } catch ({ name, errors }) {
-      if ((name = 'SequelizeUniqueConstraintError')) {
+      if (name === 'SequelizeUniqueConstraintError') {
         next(new CustomError('This user is already exist', 401));
       }
       next(new CustomError(errors, 500));
