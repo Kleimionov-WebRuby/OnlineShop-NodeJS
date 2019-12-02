@@ -25,6 +25,11 @@ class AuthController {
       next(new CustomError(errors, 500));
     }
   }
+
+  async logout(req, res) {
+    req.logOut();
+    res.status(204).end();
+  }
 }
 
 module.exports = AuthController;
