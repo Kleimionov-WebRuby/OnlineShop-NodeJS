@@ -1,4 +1,5 @@
 const CategoryRepository = require('../repositories/category');
+const CustomError = require('../helpers/error');
 
 const categoryRepository = new CategoryRepository();
 
@@ -15,8 +16,9 @@ class CategoryService {
     const category = await categoryRepository.get(id);
 
     if (!category) {
-      throw new Error(
+      throw new CustomError(
         "Sorry, this category is not found. You can't update this category, because it doesn't exists.",
+        404,
       );
     }
     await categoryRepository.update(id, newCategory);
@@ -27,8 +29,9 @@ class CategoryService {
     const category = await categoryRepository.get(id);
 
     if (!category) {
-      throw new Error(
+      throw new CustomError(
         "Sorry, this category is not found. You can't delete this category, because it doesn't exists.",
+        404,
       );
     }
     await categoryRepository.delete(id);

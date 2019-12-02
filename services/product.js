@@ -1,4 +1,5 @@
 const ProductRepository = require('../repositories/product');
+const CustomError = require('../helpers/error');
 
 const productRepository = new ProductRepository();
 
@@ -15,8 +16,9 @@ class ProductService {
     const product = await productRepository.get(id);
 
     if (!product) {
-      throw new Error(
+      throw new CustomError(
         "Sorry, this product is not found. You can't update this product, because it doesn't exists.",
+        404,
       );
     }
 
@@ -30,8 +32,9 @@ class ProductService {
     const product = await productRepository.get(id);
 
     if (!product) {
-      throw new Error(
+      throw new CustomError(
         "Sorry, this product is not found. You can't delete this product, because it doesn't exists.",
+        404,
       );
     }
 
