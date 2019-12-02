@@ -7,5 +7,6 @@ const AuthController = require('../controllers/auth');
 const authController = new AuthController();
 
 router.post('/login', passport.authenticate('local'), authController.login);
+router.post('/registration', authController.registration);
 
 module.exports = router;

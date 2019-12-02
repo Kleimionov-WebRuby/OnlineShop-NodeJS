@@ -6,6 +6,9 @@ class UserRepository {
       where: data,
     });
   }
+  create(user) {
+    return User.create(user);
+  }
 }
 
 module.exports = UserRepository;
