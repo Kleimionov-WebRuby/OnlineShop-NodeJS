@@ -10,6 +10,10 @@ class RoleRepository {
       where: data,
     });
   }
+
+  create(role) {
+    return Role.create(role);
+  }
 }
 
 module.exports = RoleRepository;

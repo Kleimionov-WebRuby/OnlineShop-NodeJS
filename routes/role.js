@@ -9,5 +9,6 @@ const roleController = new RoleController();
 // router.use(isAuthorized);
 
 router.get('/', roleController.getRoles);
+router.post('/', roleController.createRole);
 
 module.exports = router;
