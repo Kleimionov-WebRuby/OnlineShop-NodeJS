@@ -1,4 +1,4 @@
-const CustomError = require('../helpers/error');
+const CustomError = require('../classes/error');
 
 module.exports = (req, res, next) => {
   if (!req.isAuthenticated()) {

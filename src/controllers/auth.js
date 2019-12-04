@@ -1,5 +1,5 @@
 const UserService = require('../services/user');
-const CustomError = require('../helpers/error');
+const CustomError = require('../classes/error');
 
 const userService = new UserService();
 

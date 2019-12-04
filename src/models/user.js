@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
 
-const Hash = require('../helpers/hash');
+const Hash = require('../classes/hash');
 const hash = new Hash();
 
 const User = sequelize.define('users', {

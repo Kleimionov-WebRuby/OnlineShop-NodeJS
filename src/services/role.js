@@ -1,5 +1,5 @@
 const RoleRepository = require('../repositories/role');
-const CustomError = require('../helpers/error');
+const CustomError = require('../classes/error');
 
 const roleRepository = new RoleRepository();
 

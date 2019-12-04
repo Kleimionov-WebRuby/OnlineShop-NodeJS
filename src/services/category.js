@@ -1,5 +1,5 @@
 const CategoryRepository = require('../repositories/category');
-const CustomError = require('../helpers/error');
+const CustomError = require('../classes/error');
 
 const categoryRepository = new CategoryRepository();
 

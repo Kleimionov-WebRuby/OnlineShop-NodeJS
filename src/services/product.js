@@ -1,5 +1,5 @@
 const ProductRepository = require('../repositories/product');
-const CustomError = require('../helpers/error');
+const CustomError = require('../classes/error');
 
 const productRepository = new ProductRepository();
 
