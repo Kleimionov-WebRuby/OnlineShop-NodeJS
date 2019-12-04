@@ -14,6 +14,10 @@ class UserService {
     const createdUser = await userRepository.getUser({ id: newUser.id });
     return createdUser;
   }
+
+  async getUsers() {
+    return await userRepository.getAll();
+  }
 }
 
 module.exports = UserService;
