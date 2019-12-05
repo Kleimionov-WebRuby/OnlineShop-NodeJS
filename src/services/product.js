@@ -1,5 +1,5 @@
 const ProductRepository = require('../repositories/product');
-const CustomError = require('../classes/error');
+const NotFoundError = require('../classes/errors/not-found-error');
 
 const productRepository = new ProductRepository();
 
@@ -16,7 +16,7 @@ class ProductService {
     const product = await productRepository.get(id);
 
     if (!product) {
-      throw new CustomError(
+      throw new NotFoundError(
         "Sorry, this product is not found. You can't update this product, because it doesn't exists.",
         404,
       );
@@ -26,14 +26,14 @@ class ProductService {
 
     await productRepository.update(id, updatedProduct);
 
-    return await 'Product successfully updated';
+    return null;
   }
 
   async deleteProduct(id) {
     const product = await productRepository.get(id);
 
     if (!product) {
-      throw new CustomError(
+      throw new NotFoundError(
         "Sorry, this product is not found. You can't delete this product, because it doesn't exists.",
         404,
       );
@@ -41,7 +41,7 @@ class ProductService {
 
     await productRepository.delete(id);
 
-    return await 'Product successfully deleted';
+    return null;
   }
 }
 

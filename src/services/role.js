@@ -1,5 +1,5 @@
 const RoleRepository = require('../repositories/role');
-const CustomError = require('../classes/error');
+const BadRequestError = require('../classes/errors/bad-request-error');
 
 const roleRepository = new RoleRepository();
 
@@ -12,7 +12,7 @@ class RoleService {
     const role = await roleRepository.getRole({ roleName: newRole.roleName });
 
     if (role) {
-      throw new CustomError('Sorry, this role is already exist.', 401);
+      throw new BadRequestError('Sorry, this role is already exist.', 400);
     }
 
     return await roleRepository.create(newRole);

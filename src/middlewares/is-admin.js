@@ -1,4 +1,6 @@
-const CustomError = require('../classes/error');
+const AccessError = require('../classes/errors/access-error');
+const AuthenticationError = require('../classes/errors/auth-error');
+const InternalServerError = require('../classes/errors/server-error');
 
 module.exports = async (req, res, next) => {
   try {
@@ -14,9 +16,9 @@ module.exports = async (req, res, next) => {
 
       if (!isAdmin) {
         next(
-          new CustomError(
+          new AccessError(
             'Access is denied. Your access rights are not enough!',
-            400,
+            403,
           ),
         );
       }
@@ -24,8 +26,8 @@ module.exports = async (req, res, next) => {
       return next();
     }
 
-    next(new CustomError('You are not authenticated!', 401));
+    next(new AuthenticationError('You are not authenticated!', 401));
   } catch (err) {
-    next(new CustomError(err.message, 500));
+    next(new InternalServerError(err.message, 500));
   }
 };

@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
-const CustomError = require('../classes/error');
 
 const RoleRepository = require('../repositories/role');
 const roleRepository = new RoleRepository();

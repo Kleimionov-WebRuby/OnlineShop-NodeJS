@@ -1,5 +1,6 @@
 const UserService = require('../services/user');
-const CustomError = require('../classes/error');
+const AuthenticationError = require('../classes/errors/auth-error');
+const InternalServerError = require('../classes/errors/server-error');
 
 const userService = new UserService();
 
@@ -14,17 +15,17 @@ class AuthController {
 
       await req.login(user, err => {
         if (err) {
-          next(new CustomError(err, 401));
+          next(new AuthenticationError(err, 401));
         }
 
         res.status(200).send(user);
       });
     } catch ({ name, errors }) {
       if (name === 'SequelizeUniqueConstraintError') {
-        next(new CustomError('This user is already exist', 401));
+        next(new AuthenticationError('This user is already exist', 401));
       }
 
-      next(new CustomError(errors, 500));
+      next(new InternalServerError(errors, 500));
     }
   }
 

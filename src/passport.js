@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const CustomError = require('./classes/error');
+const AuthenticationError = require('./classes/errors/auth-error');
 const UserRepository = require('./repositories/user');
 
 const userRepository = new UserRepository();
@@ -12,12 +12,16 @@ passport.use(
       const user = await userRepository.getUser({ email });
 
       if (!user) {
-        return done(new CustomError('Email or password is incorrect!', 401));
+        return done(
+          new AuthenticationError('Email or password is incorrect!', 401),
+        );
       } else {
         const isValid = await user.validPassword(password);
 
         if (!isValid) {
-          return done(new CustomError('Email or password is incorrect!', 401));
+          return done(
+            new AuthenticationError('Email or password is incorrect!', 401),
+          );
         }
       }
       return done(null, user);
