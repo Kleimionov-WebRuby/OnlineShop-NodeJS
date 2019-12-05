@@ -1,5 +1,9 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
+const CustomError = require('../classes/error');
+
+const RoleRepository = require('../repositories/role');
+const roleRepository = new RoleRepository();
 
 const Hash = require('../classes/hash');
 const hash = new Hash();
@@ -52,8 +56,14 @@ User.prototype.validPassword = async function(password) {
   return await hash.compare(password, this.password);
 };
 
-User.beforeCreate(
-  async user => (user.password = await hash.hash(user.password)),
-);
+User.beforeCreate(async user => {
+  user.password = await hash.hash(user.password);
+});
+
+User.afterCreate(async user => {
+  const defaultRole = await roleRepository.getRole({ roleName: 'user' });
+
+  await user.addRoles(defaultRole);
+});
 
 module.exports = User;
