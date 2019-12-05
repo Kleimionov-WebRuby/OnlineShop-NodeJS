@@ -1,5 +1,4 @@
 const CategoryService = require('../services/category');
-const responseFormat = require('../middlewares/response-format');
 
 const categoryService = new CategoryService();
 
@@ -19,9 +18,10 @@ class CategoryController {
   async updateCategory(req, res, next) {
     try {
       const { id } = req.params;
-      const result = await categoryService.updateCategory(id, req.body);
 
-      res.status(200).send(responseFormat(result));
+      await categoryService.updateCategory(id, req.body);
+
+      res.status(204).end();
     } catch (err) {
       next(err);
     }
@@ -30,9 +30,10 @@ class CategoryController {
   async deleteCategory(req, res, next) {
     try {
       const { id } = req.params;
-      const result = await categoryService.deleteCategory(id);
 
-      res.status(200).send(responseFormat(result));
+      await categoryService.deleteCategory(id);
+
+      res.status(204).end();
     } catch (err) {
       next(err);
     }

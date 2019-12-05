@@ -14,6 +14,7 @@ class RoleService {
     if (role) {
       throw new CustomError('Sorry, this role is already exist.', 401);
     }
+
     return await roleRepository.create(newRole);
   }
 }

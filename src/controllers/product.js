@@ -1,6 +1,4 @@
 const ProductService = require('../services/product');
-const responseFormat = require('../middlewares/response-format');
-
 const productService = new ProductService();
 
 class ProductController {
@@ -19,9 +17,10 @@ class ProductController {
   async updateProduct(req, res, next) {
     try {
       const { id } = req.params;
-      const result = await productService.updateProduct(id, req.body);
 
-      res.status(200).send(responseFormat(result));
+      await productService.updateProduct(id, req.body);
+
+      res.status(204).end();
     } catch (err) {
       next(err);
     }
@@ -30,9 +29,10 @@ class ProductController {
   async deleteProduct(req, res, next) {
     try {
       const { id } = req.params;
-      const result = await productService.deleteProduct(id);
 
-      res.status(200).send(responseFormat(result));
+      await productService.deleteProduct(id);
+
+      res.status(204).end();
     } catch (err) {
       next(err);
     }

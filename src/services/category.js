@@ -21,7 +21,9 @@ class CategoryService {
         404,
       );
     }
+
     await categoryRepository.update(id, newCategory);
+
     return await 'Category successfully updated';
   }
 
@@ -34,7 +36,9 @@ class CategoryService {
         404,
       );
     }
+
     await categoryRepository.delete(id);
+
     return await 'Category successfully deleted';
   }
 }

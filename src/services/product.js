@@ -25,6 +25,7 @@ class ProductService {
     updatedProduct.updatedAt = new Date();
 
     await productRepository.update(id, updatedProduct);
+
     return await 'Product successfully updated';
   }
 
@@ -39,6 +40,7 @@ class ProductService {
     }
 
     await productRepository.delete(id);
+
     return await 'Product successfully deleted';
   }
 }
