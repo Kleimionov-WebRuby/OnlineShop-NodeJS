@@ -18,7 +18,6 @@ class CategoryService {
     if (!category) {
       throw new NotFoundError(
         "Sorry, this category is not found. You can't update this category, because it doesn't exists.",
-        404,
       );
     }
 
@@ -33,7 +32,6 @@ class CategoryService {
     if (!category) {
       throw new NotFoundError(
         "Sorry, this category is not found. You can't delete this category, because it doesn't exists.",
-        404,
       );
     }
 

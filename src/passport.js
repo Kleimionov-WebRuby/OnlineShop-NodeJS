@@ -12,15 +12,13 @@ passport.use(
       const user = await userRepository.getUser({ email });
 
       if (!user) {
-        return done(
-          new AuthenticationError('Email or password is incorrect!', 401),
-        );
+        return done(new AuthenticationError('Email or password is incorrect!'));
       } else {
         const isValid = await user.validPassword(password);
 
         if (!isValid) {
           return done(
-            new AuthenticationError('Email or password is incorrect!', 401),
+            new AuthenticationError('Email or password is incorrect!'),
           );
         }
       }

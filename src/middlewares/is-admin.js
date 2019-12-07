@@ -18,7 +18,6 @@ module.exports = async (req, res, next) => {
         next(
           new AccessError(
             'Access is denied. Your access rights are not enough!',
-            403,
           ),
         );
       }
@@ -26,8 +25,8 @@ module.exports = async (req, res, next) => {
       return next();
     }
 
-    next(new AuthenticationError('You are not authenticated!', 401));
+    next(new AuthenticationError('You are not authenticated!'));
   } catch (err) {
-    next(new InternalServerError(err.message, 500));
+    next(new InternalServerError(err.message));
   }
 };

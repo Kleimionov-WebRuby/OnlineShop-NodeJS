@@ -1,6 +1,5 @@
 const UserService = require('../services/user');
 const AuthenticationError = require('../classes/errors/auth-error');
-const InternalServerError = require('../classes/errors/server-error');
 
 const userService = new UserService();
 
@@ -14,7 +13,7 @@ class AuthController {
 
     await req.login(user, err => {
       if (err) {
-        next(new AuthenticationError(err, 401));
+        next(new AuthenticationError(err));
       }
 
       res.status(200).send(user);

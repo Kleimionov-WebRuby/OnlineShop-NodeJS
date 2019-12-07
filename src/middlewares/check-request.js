@@ -5,7 +5,7 @@ const checkRequest = fn => async (req, res, next) => {
     await fn(req, res, next);
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
-      return next(new AuthenticationError('This user is already exist', 401));
+      return next(new AuthenticationError('This user is already exist'));
     }
     next(err);
   }

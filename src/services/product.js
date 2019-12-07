@@ -18,7 +18,6 @@ class ProductService {
     if (!product) {
       throw new NotFoundError(
         "Sorry, this product is not found. You can't update this product, because it doesn't exists.",
-        404,
       );
     }
 
@@ -35,7 +34,6 @@ class ProductService {
     if (!product) {
       throw new NotFoundError(
         "Sorry, this product is not found. You can't delete this product, because it doesn't exists.",
-        404,
       );
     }
 
