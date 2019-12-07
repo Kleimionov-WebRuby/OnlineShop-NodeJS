@@ -14,6 +14,10 @@ class RoleRepository {
   create(role) {
     return Role.create(role);
   }
+
+  delete(id) {
+    return Role.destroy({ where: { id } });
+  }
 }
 
 module.exports = RoleRepository;

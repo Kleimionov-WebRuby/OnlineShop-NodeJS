@@ -14,6 +14,14 @@ class RoleController {
 
     res.status(200).send(result);
   }
+
+  async deleteRole(req, res) {
+    const { id } = req.params;
+
+    await roleService.deleteRole(id);
+
+    res.status(204).end();
+  }
 }
 
 module.exports = RoleController;

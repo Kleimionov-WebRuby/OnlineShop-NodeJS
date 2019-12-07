@@ -12,5 +12,6 @@ const roleController = new RoleController();
 
 router.get('/', isAdmin, checkRequest(roleController.getRoles));
 router.post('/', isAdmin, checkRequest(roleController.createRole));
+router.delete('/:id', /*isAdmin,*/ checkRequest(roleController.deleteRole));
 
 module.exports = router;

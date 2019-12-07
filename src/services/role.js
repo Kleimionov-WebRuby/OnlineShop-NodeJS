@@ -17,6 +17,18 @@ class RoleService {
 
     return await roleRepository.create(newRole);
   }
+
+  async deleteRole(id) {
+    const role = await roleRepository.getRole({ id });
+
+    if (!role) {
+      throw new BadRequestError("Sorry, this role doesn't exist", 400);
+    }
+
+    await roleRepository.delete(id);
+
+    return null;
+  }
 }
 
 module.exports = RoleService;
