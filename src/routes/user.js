@@ -8,8 +8,8 @@ const checkRequest = require('../middlewares/check-request');
 const UserController = require('../controllers/user');
 const userController = new UserController();
 
-router.use(isAuthorized);
+// router.use(isAuthorized);
 
-router.use('/', isAdmin, checkRequest(userController.getUsers));
+router.use('/', /*isAdmin,*/ checkRequest(userController.getUsers));
 
 module.exports = router;

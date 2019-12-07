@@ -1,5 +1,4 @@
 const UserRepository = require('../repositories/user');
-const RoleRepository = require('../repositories/role');
 
 const userRepository = new UserRepository();
 
@@ -8,8 +7,8 @@ class UserService {
     return await userRepository.create(user);
   }
 
-  async getUsers() {
-    return await userRepository.getAll();
+  async getUsers(options) {
+    return await userRepository.getAll(options);
   }
 }
 

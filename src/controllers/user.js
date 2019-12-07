@@ -4,7 +4,9 @@ const userService = new UserService();
 
 class UserController {
   async getUsers(req, res) {
-    const users = await userService.getUsers();
+    const options = req.query;
+
+    const users = await userService.getUsers(options);
 
     res.status(200).send(users);
   }

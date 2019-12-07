@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Role = require('../models/role');
+const { Op } = require('sequelize');
 
 class UserRepository {
   getUser(data) {
@@ -18,8 +19,11 @@ class UserRepository {
     return User.create(user);
   }
 
-  getAll() {
+  getAll(options) {
     return User.findAll({
+      where: {
+        [Op.and]: [{ ...options }],
+      },
       attributes: [
         'id',
         'first_name',
