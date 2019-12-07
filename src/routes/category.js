@@ -1,6 +1,7 @@
 const express = require('express');
 const isAuthorized = require('../middlewares/is-authorized');
 const isAdmin = require('../middlewares/is-admin');
+const checkRequest = require('../middlewares/check-request');
 
 const router = express.Router();
 
@@ -9,9 +10,9 @@ const categoryController = new CategoryController();
 
 router.use(isAuthorized);
 
-router.get('/', isAdmin, categoryController.getCategories);
-router.post('/', isAdmin, categoryController.createCategory);
-router.put('/:id', isAdmin, categoryController.updateCategory);
-router.delete('/:id', isAdmin, categoryController.deleteCategory);
+router.get('/', isAdmin, checkRequest(categoryController.getCategories));
+router.post('/', isAdmin, checkRequest(categoryController.createCategory));
+router.put('/:id', isAdmin, checkRequest(categoryController.updateCategory));
+router.delete('/:id', isAdmin, checkRequest(categoryController.deleteCategory));
 
 module.exports = router;

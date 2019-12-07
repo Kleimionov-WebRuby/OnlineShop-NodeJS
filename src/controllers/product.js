@@ -14,28 +14,20 @@ class ProductController {
     res.status(200).send(result);
   }
 
-  async updateProduct(req, res, next) {
-    try {
-      const { id } = req.params;
+  async updateProduct(req, res) {
+    const { id } = req.params;
 
-      await productService.updateProduct(id, req.body);
+    await productService.updateProduct(id, req.body);
 
-      res.status(204).end();
-    } catch (err) {
-      next(err);
-    }
+    res.status(204).end();
   }
 
-  async deleteProduct(req, res, next) {
-    try {
-      const { id } = req.params;
+  async deleteProduct(req, res) {
+    const { id } = req.params;
 
-      await productService.deleteProduct(id);
+    await productService.deleteProduct(id);
 
-      res.status(204).end();
-    } catch (err) {
-      next(err);
-    }
+    res.status(204).end();
   }
 }
 

@@ -15,28 +15,20 @@ class CategoryController {
     res.status(200).send(category);
   }
 
-  async updateCategory(req, res, next) {
-    try {
-      const { id } = req.params;
+  async updateCategory(req, res) {
+    const { id } = req.params;
 
-      await categoryService.updateCategory(id, req.body);
+    await categoryService.updateCategory(id, req.body);
 
-      res.status(204).end();
-    } catch (err) {
-      next(err);
-    }
+    res.status(204).end();
   }
 
-  async deleteCategory(req, res, next) {
-    try {
-      const { id } = req.params;
+  async deleteCategory(req, res) {
+    const { id } = req.params;
 
-      await categoryService.deleteCategory(id);
+    await categoryService.deleteCategory(id);
 
-      res.status(204).end();
-    } catch (err) {
-      next(err);
-    }
+    res.status(204).end();
   }
 }
 

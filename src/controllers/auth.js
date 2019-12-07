@@ -10,23 +10,15 @@ class AuthController {
   }
 
   async registration(req, res, next) {
-    try {
-      const user = await userService.create(req.body);
+    const user = await userService.create(req.body);
 
-      await req.login(user, err => {
-        if (err) {
-          next(new AuthenticationError(err, 401));
-        }
-
-        res.status(200).send(user);
-      });
-    } catch ({ name, errors }) {
-      if (name === 'SequelizeUniqueConstraintError') {
-        next(new AuthenticationError('This user is already exist', 401));
+    await req.login(user, err => {
+      if (err) {
+        next(new AuthenticationError(err, 401));
       }
 
-      next(new InternalServerError(errors, 500));
-    }
+      res.status(200).send(user);
+    });
   }
 
   async logout(req, res) {
