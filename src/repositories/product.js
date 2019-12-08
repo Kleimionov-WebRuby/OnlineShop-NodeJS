@@ -3,10 +3,16 @@ const Category = require('../models/category');
 const { Op } = require('sequelize');
 
 class ProductRepository {
-  getAll(options) {
-    const { title, page, size } = options;
-    const skip = Number(size) * (Number(page) - 1);
-    const limit = Number(size);
+  getAll(pagination, options) {
+    const { title } = options;
+    const { page, size } = pagination;
+    let pageNum, sizeNum;
+
+    page ? (pageNum = page) : (pageNum = 1);
+    size ? (sizeNum = size) : (sizeNum = 2);
+
+    const skip = sizeNum * (pageNum - 1);
+    const limit = sizeNum;
     const sequelizeOptions = {
       where: {
         title: {

@@ -19,8 +19,16 @@ class UserRepository {
     return User.create(user);
   }
 
-  getAll(options) {
-    return User.findAndCountAll({
+  getAll(pagination, options) {
+    const { page, size } = pagination;
+    let pageNum, sizeNum;
+
+    page ? (pageNum = page) : (pageNum = 1);
+    size ? (sizeNum = size) : (sizeNum = 2);
+
+    const skip = sizeNum * (pageNum - 1);
+    const limit = sizeNum;
+    const sequelizeOptions = {
       where: {
         [Op.and]: [{ ...options }],
       },
@@ -39,8 +47,12 @@ class UserRepository {
           through: { attributes: [] },
         },
       ],
+      limit,
+      offset: skip,
       distinct: true, // Without this option I get wrong count in response. In count includes the included rows as role
-    });
+    };
+
+    return User.findAndCountAll(sequelizeOptions);
   }
 }
 

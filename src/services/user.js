@@ -1,3 +1,4 @@
+const helper = require('../helpers');
 const UserRepository = require('../repositories/user');
 
 const userRepository = new UserRepository();
@@ -7,8 +8,10 @@ class UserService {
     return await userRepository.create(user);
   }
 
-  async getUsers(options) {
-    return await userRepository.getAll(options);
+  async getUsers(query) {
+    const { pagination, options } = helper.getPaginationFromQuery(query);
+
+    return await userRepository.getAll(pagination, options);
   }
 }
 

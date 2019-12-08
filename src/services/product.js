@@ -1,11 +1,14 @@
+const helper = require('../helpers');
 const ProductRepository = require('../repositories/product');
 const NotFoundError = require('../classes/errors/not-found-error');
 
 const productRepository = new ProductRepository();
 
 class ProductService {
-  async getProducts(options) {
-    return await productRepository.getAll(options);
+  async getProducts(query) {
+    const { pagination, options } = helper.getPaginationFromQuery(query);
+
+    return await productRepository.getAll(pagination, options);
   }
 
   async createProduct(newProduct) {
