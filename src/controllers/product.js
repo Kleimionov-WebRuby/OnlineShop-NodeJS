@@ -3,7 +3,8 @@ const productService = new ProductService();
 
 class ProductController {
   async getProducts(req, res) {
-    const products = await productService.getProducts();
+    const options = req.query;
+    const products = await productService.getProducts(options);
 
     res.status(200).send(products);
   }

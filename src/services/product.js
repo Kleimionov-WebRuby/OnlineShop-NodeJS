@@ -4,11 +4,14 @@ const NotFoundError = require('../classes/errors/not-found-error');
 const productRepository = new ProductRepository();
 
 class ProductService {
-  async getProducts() {
-    return await productRepository.getAll();
+  async getProducts(options) {
+    return await productRepository.getAll(options);
   }
 
   async createProduct(newProduct) {
+    newProduct.createdAt = new Date();
+    newProduct.updatedAt = new Date();
+
     return await productRepository.create(newProduct);
   }
 

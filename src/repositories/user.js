@@ -20,7 +20,7 @@ class UserRepository {
   }
 
   getAll(options) {
-    return User.findAll({
+    return User.findAndCountAll({
       where: {
         [Op.and]: [{ ...options }],
       },
@@ -39,6 +39,7 @@ class UserRepository {
           through: { attributes: [] },
         },
       ],
+      distinct: true, // Without this option I get wrong count in response. In count includes the included rows as role
     });
   }
 }
