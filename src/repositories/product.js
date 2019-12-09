@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 class ProductRepository {
   getAll(pagination, options) {
-    const { title, withImg } = options;
+    const { title, withImg, dateSort } = options; // dateSort = ASC || DESC in query params
     const { page, size } = pagination;
     let pageNum, sizeNum;
 
@@ -21,9 +21,21 @@ class ProductRepository {
         [Op.not]: null,
       },
     };
+    const orderOptions = [
+      ['updatedAt', dateSort],
+      ['amount', 'DESC'],
+    ];
     const sequelizeOptions = {
       where: whereOptions,
-      attributes: ['id', 'title', 'desc', 'price', 'picture', 'amount'],
+      attributes: [
+        'id',
+        'title',
+        'desc',
+        'price',
+        'picture',
+        'amount',
+        'updatedAt',
+      ],
       include: [
         {
           model: Category,
@@ -33,17 +45,16 @@ class ProductRepository {
       ],
       limit,
       offset: skip,
-      order: [['amount', 'DESC']],
+      order: orderOptions,
       distinct: true, // Without this option I get wrong count in response. In count includes the included rows as categories
     };
 
-    if (!title) {
-      delete whereOptions.title;
-    }
-
-    if (!withImg) {
-      delete whereOptions.picture;
-    }
+    // If the title attribute isn't in the query parameters - delete key title from whereOptions
+    if (!title) delete whereOptions.title;
+    // If the withImg attribute isn't in the query parameters - delete key picture from whereOptions
+    if (!withImg) delete whereOptions.picture;
+    // If the dateSort attribute isn't in the query parameters - cut order row "updatedAt" from orderOptions
+    if (!dateSort) orderOptions.splice(0, 1);
 
     return Product.findAndCountAll(sequelizeOptions);
   }
