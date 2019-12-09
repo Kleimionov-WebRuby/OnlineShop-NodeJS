@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 class ProductRepository {
   getAll(pagination, options) {
-    const { title } = options;
+    const { title, withImg } = options;
     const { page, size } = pagination;
     let pageNum, sizeNum;
 
@@ -13,12 +13,16 @@ class ProductRepository {
 
     const skip = sizeNum * (pageNum - 1);
     const limit = sizeNum;
-    const sequelizeOptions = {
-      where: {
-        title: {
-          [Op.like]: title ? `%${title}%` : '%%',
-        },
+    const whereOptions = {
+      title: {
+        [Op.like]: `%${title}%`,
       },
+      picture: {
+        [Op.not]: null,
+      },
+    };
+    const sequelizeOptions = {
+      where: whereOptions,
       attributes: ['id', 'title', 'desc', 'price', 'picture', 'amount'],
       include: [
         {
@@ -29,8 +33,17 @@ class ProductRepository {
       ],
       limit,
       offset: skip,
+      order: [['amount', 'DESC']],
       distinct: true, // Without this option I get wrong count in response. In count includes the included rows as categories
     };
+
+    if (!title) {
+      delete whereOptions.title;
+    }
+
+    if (!withImg) {
+      delete whereOptions.picture;
+    }
 
     return Product.findAndCountAll(sequelizeOptions);
   }

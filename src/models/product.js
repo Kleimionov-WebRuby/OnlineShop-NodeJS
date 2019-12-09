@@ -25,6 +25,7 @@ const Product = sequelize.define('products', {
   picture: {
     type: Sequelize.STRING,
     allowNull: true,
+    defaultValue: null,
   },
   amount: {
     type: Sequelize.INTEGER,
