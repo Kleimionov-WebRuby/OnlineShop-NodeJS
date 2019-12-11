@@ -9,9 +9,11 @@ class UserService {
   }
 
   async getUsers(query) {
-    const { pagination, options } = helper.getPaginationFromQuery(query);
+    const queryCopy = JSON.parse(JSON.stringify(query));
 
-    return await userRepository.getAll(pagination, options);
+    const { pagination } = helper.carvePaginationFromQuery(queryCopy);
+
+    return await userRepository.getAll(pagination, queryCopy);
   }
 }
 

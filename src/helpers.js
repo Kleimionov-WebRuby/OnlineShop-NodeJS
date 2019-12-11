@@ -1,4 +1,14 @@
-const getPaginationFromQuery = query => {
+const carveSpecificFieldFromQuery = (query, searchingField) => {
+  const result = {
+    [searchingField]: query[searchingField],
+  };
+
+  delete query[searchingField];
+
+  return result;
+};
+
+const carvePaginationFromQuery = query => {
   const { page, size } = query;
   const pagination = {
     page: Number(page),
@@ -8,7 +18,7 @@ const getPaginationFromQuery = query => {
   delete query.page;
   delete query.size;
 
-  return { pagination, options: query };
+  return { pagination };
 };
 
-module.exports = { getPaginationFromQuery };
+module.exports = { carvePaginationFromQuery, carveSpecificFieldFromQuery };

@@ -6,9 +6,15 @@ const productRepository = new ProductRepository();
 
 class ProductService {
   async getProducts(query) {
-    const { pagination, options } = helper.getPaginationFromQuery(query);
+    const queryCopy = JSON.parse(JSON.stringify(query));
 
-    return await productRepository.getAll(pagination, options);
+    const { pagination } = helper.carvePaginationFromQuery(queryCopy);
+    const { categories } = helper.carveSpecificFieldFromQuery(
+      queryCopy,
+      'categories',
+    );
+
+    return await productRepository.getAll(pagination, queryCopy, categories);
   }
 
   async createProduct(newProduct) {

@@ -3,7 +3,7 @@ const Category = require('../models/category');
 const { Op } = require('sequelize');
 
 class ProductRepository {
-  getAll(pagination, options) {
+  getAll(pagination, options, categories) {
     const { title, withImg, dateSort } = options; // dateSort = ASC || DESC in query params
     const { page, size } = pagination;
     let pageNum, sizeNum;
@@ -13,6 +13,12 @@ class ProductRepository {
 
     const skip = sizeNum * (pageNum - 1);
     const limit = sizeNum;
+
+    const categoryIds =
+      categories && categories.length > 0
+        ? JSON.parse(`[${categories}]`)
+        : null;
+
     const whereOptions = {
       title: {
         [Op.like]: `%${title}%`,
@@ -21,10 +27,12 @@ class ProductRepository {
         [Op.not]: null,
       },
     };
+
     const orderOptions = [
       ['updatedAt', dateSort],
       ['amount', 'DESC'],
     ];
+
     const sequelizeOptions = {
       where: whereOptions,
       attributes: [
@@ -41,6 +49,11 @@ class ProductRepository {
           model: Category,
           attributes: ['id', 'categoryName'],
           through: { attributes: [] },
+          where: {
+            id: {
+              [Op.in]: categoryIds,
+            },
+          },
         },
       ],
       limit,
@@ -55,6 +68,8 @@ class ProductRepository {
     if (!withImg) delete whereOptions.picture;
     // If the dateSort attribute isn't in the query parameters - cut order row "updatedAt" from orderOptions
     if (!dateSort) orderOptions.splice(0, 1);
+    // If the categoryIds is isn't in the query parameters - delete key 'where' in sequelizeOptions from 'include' of categories
+    if (!categoryIds) delete sequelizeOptions.include[0].where;
 
     return Product.findAndCountAll(sequelizeOptions);
   }
