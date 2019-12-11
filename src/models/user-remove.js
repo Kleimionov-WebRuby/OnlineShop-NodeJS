@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
 
-const Rating = sequelize.define('ratings', {
+const UsersRemove = sequelize.define('users_remove', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -9,11 +9,12 @@ const Rating = sequelize.define('ratings', {
     allowNull: false,
     unique: true,
   },
-  ratingValue: {
-    type: Sequelize.INTEGER,
-    field: 'rating_value',
+  removeAt: {
+    type: Sequelize.DATE,
     allowNull: false,
+    field: 'remove_at',
+    isDate: true,
   },
 });
 
-module.exports = Rating;
+module.exports = UsersRemove;
