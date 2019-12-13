@@ -5,6 +5,9 @@ class ProductController {
   async getProducts(req, res) {
     const options = req.query;
     const products = await productService.getProducts(options);
+    // This code was used for rewrite the key count, cause when we get 'products' object from Repositories
+    // we get key count as an array, but I want to get just number
+    products.count = products.count.length;
 
     res.status(200).send(products);
   }

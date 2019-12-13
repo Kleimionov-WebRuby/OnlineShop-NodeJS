@@ -1,6 +1,8 @@
+const User = require('../models/user');
 const Product = require('../models/product');
 const Category = require('../models/category');
-const { Op } = require('sequelize');
+const Rating = require('../models/rating');
+const { Op, Sequelize } = require('sequelize');
 
 class ProductRepository {
   getAll(pagination, options, categories) {
@@ -13,7 +15,6 @@ class ProductRepository {
 
     const skip = sizeNum * (pageNum - 1);
     const limit = sizeNum;
-
     const categoryIds =
       categories && categories.length > 0
         ? JSON.parse(`[${categories}]`)
@@ -27,14 +28,13 @@ class ProductRepository {
         [Op.not]: null,
       },
     };
-
     const orderOptions = [
       ['updatedAt', dateSort],
       ['amount', 'DESC'],
     ];
-
     const sequelizeOptions = {
-      where: whereOptions,
+      subQuery: false,
+      distinct: true, // Without this option I get wrong count in response. In count includes the included rows as categories
       attributes: [
         'id',
         'title',
@@ -43,12 +43,29 @@ class ProductRepository {
         'picture',
         'amount',
         'updatedAt',
+        [
+          Sequelize.fn('AVG', Sequelize.col('ratings.rating_value')),
+          'rating_avg',
+        ],
+        [
+          Sequelize.fn(
+            'count',
+            Sequelize.fn('DISTINCT', Sequelize.col('ratings.id')), // Without this option I get wrong count in response. In count includes the included rows as categories
+          ),
+          'rating_total',
+        ],
       ],
       include: [
         {
+          model: Rating,
+          attributes: ['id', 'rating_value'],
+        },
+        {
           model: Category,
           attributes: ['id', 'categoryName'],
-          through: { attributes: [] },
+          through: {
+            attributes: [],
+          },
           where: {
             id: {
               [Op.in]: categoryIds,
@@ -56,10 +73,11 @@ class ProductRepository {
           },
         },
       ],
+      group: ['Products.id'],
+      where: whereOptions,
       limit,
       offset: skip,
       order: orderOptions,
-      distinct: true, // Without this option I get wrong count in response. In count includes the included rows as categories
     };
 
     // If the title attribute isn't in the query parameters - delete key title from whereOptions
@@ -69,7 +87,7 @@ class ProductRepository {
     // If the dateSort attribute isn't in the query parameters - cut order row "updatedAt" from orderOptions
     if (!dateSort) orderOptions.splice(0, 1);
     // If the categoryIds is isn't in the query parameters - delete key 'where' in sequelizeOptions from 'include' of categories
-    if (!categoryIds) delete sequelizeOptions.include[0].where;
+    if (!categoryIds) delete sequelizeOptions.include[1].where;
 
     return Product.findAndCountAll(sequelizeOptions);
   }
