@@ -10,6 +10,12 @@ class UserController {
 
     res.status(200).send(users);
   }
+
+  async updateUser(req, res) {
+    const updatedUsers = await userService.updateUsers(req.user, req.body);
+
+    res.status(200).send(updatedUsers);
+  }
 }
 
 module.exports = UserController;

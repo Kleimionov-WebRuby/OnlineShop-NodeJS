@@ -54,6 +54,10 @@ class UserRepository {
 
     return User.findAndCountAll(sequelizeOptions);
   }
+
+  update(currentUser, newUser) {
+    return currentUser.update(newUser);
+  }
 }
 
 module.exports = UserRepository;

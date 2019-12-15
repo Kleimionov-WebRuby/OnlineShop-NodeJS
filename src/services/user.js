@@ -1,4 +1,5 @@
 const helper = require('../helpers');
+const AuthenticationError = require('../classes/errors/auth-error');
 const UserRepository = require('../repositories/user');
 
 const userRepository = new UserRepository();
@@ -14,6 +15,14 @@ class UserService {
     const { pagination } = helper.carvePaginationFromQuery(queryCopy);
 
     return await userRepository.getAll(pagination, queryCopy);
+  }
+
+  async updateUsers(currentUser, newUser) {
+    if (!currentUser) {
+      throw new AuthenticationError('You are not authorized');
+    }
+
+    return await userRepository.update(currentUser, newUser);
   }
 }
 

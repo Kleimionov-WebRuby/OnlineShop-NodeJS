@@ -10,6 +10,7 @@ const userController = new UserController();
 
 router.use(isAuthorized);
 
-router.use('/', isAdmin, checkRequest(userController.getUsers));
+router.get('/', isAdmin, checkRequest(userController.getUsers));
+router.put('/', checkRequest(userController.updateUser));
 
 module.exports = router;
