@@ -51,7 +51,27 @@ class RoleService {
     let user = await userRepository.getUser({ id: userId });
     const adminRole = await roleRepository.getRole({ roleName: 'admin' });
 
-    if (!adminRole) throw new NotFoundError('Sorry, this role is not found.');
+    if (!adminRole) {
+      throw new NotFoundError('Sorry, this role is not found.');
+    }
+
+    const isRole = await user.getRoles({ where: { id: adminRole.id } });
+
+    if (!isRole || isRole.length === 0) {
+      throw new BadRequestError(
+        "Sorry, but this user doesn't have role 'admin'.",
+      );
+    }
+
+    const roleCount = await roleRepository.getRoleCount({
+      role_id: adminRole.id,
+    });
+
+    if (roleCount.count <= 1) {
+      throw new BadRequestError(
+        "Sorry, you can't delete this user's role because it's the last one",
+      );
+    }
 
     await user.removeRole(adminRole);
     user = await userRepository.getUser({ id: userId });

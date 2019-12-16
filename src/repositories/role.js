@@ -1,4 +1,5 @@
 const Role = require('../models/role');
+const UsersRoles = require('../models/users-roles');
 
 class RoleRepository {
   getAll() {
@@ -17,6 +18,12 @@ class RoleRepository {
 
   delete(id) {
     return Role.destroy({ where: { id } });
+  }
+
+  getRoleCount(data) {
+    return UsersRoles.findAndCountAll({
+      where: data,
+    });
   }
 }
 
