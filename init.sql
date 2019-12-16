@@ -109,6 +109,7 @@ VALUES
 ("Test", "Testing", "test@gmail.com", "$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC");
 
 INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,2);
+INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,1);
 INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (2,1);
 
 --  Insert Into for testng association between tables @products and @categories (ON DELET 'product' -> delete row with | product_id === product->id \  in table @product_categories)
@@ -126,7 +127,11 @@ VALUES
 
 INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (1,2);
 INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (2,1);
+INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (2,2);
+INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (1,1);
 
 
-INSERT INTO `rating` (`rating_value`, `product_id`, `user_id`) VALUES (2,1,2);
-INSERT INTO `rating` (`rating_value`, `product_id`, `user_id`) VALUES (5,2,1);
+INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (2,1,2);
+INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (5,2,1);
+INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (2,2,2);
+INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (5,1,1);

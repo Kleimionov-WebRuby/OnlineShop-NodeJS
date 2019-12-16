@@ -22,6 +22,22 @@ class RoleController {
 
     res.status(204).end();
   }
+
+  async putRoleAdmin(req, res) {
+    const { userId } = req.params;
+
+    const updatedUsers = await roleService.putRoleAdmin(userId);
+
+    res.status(200).send(updatedUsers);
+  }
+
+  async removeRoleAdmin(req, res) {
+    const { userId } = req.params;
+
+    const updatedUsers = await roleService.removeRoleAdmin(userId);
+
+    res.status(200).send(updatedUsers);
+  }
 }
 
 module.exports = RoleController;

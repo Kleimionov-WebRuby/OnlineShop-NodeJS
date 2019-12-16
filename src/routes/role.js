@@ -13,5 +13,15 @@ router.use(isAuthorized);
 router.get('/', isAdmin, checkRequest(roleController.getRoles));
 router.post('/', isAdmin, checkRequest(roleController.createRole));
 router.delete('/:id', isAdmin, checkRequest(roleController.deleteRole));
+router.post(
+  '/putrole/:userId',
+  isAdmin,
+  checkRequest(roleController.putRoleAdmin),
+);
+router.delete(
+  '/removerole/:userId',
+  isAdmin,
+  checkRequest(roleController.removeRoleAdmin),
+);
 
 module.exports = router;

@@ -1,8 +1,10 @@
 const RoleRepository = require('../repositories/role');
+const UserRepository = require('../repositories/user');
 const BadRequestError = require('../classes/errors/bad-request-error');
 const NotFoundError = require('../classes/errors/not-found-error');
 
 const roleRepository = new RoleRepository();
+const userRepository = new UserRepository();
 
 class RoleService {
   async getRoles() {
@@ -31,6 +33,30 @@ class RoleService {
     await roleRepository.delete(id);
 
     return null;
+  }
+
+  async putRoleAdmin(userId) {
+    let user = await userRepository.getUser({ id: userId });
+    const adminRole = await roleRepository.getRole({ roleName: 'admin' });
+
+    if (!adminRole) throw new NotFoundError('Sorry, this role is not found.');
+
+    await user.addRole(adminRole);
+    user = await userRepository.getUser({ id: userId });
+
+    return user;
+  }
+
+  async removeRoleAdmin(userId) {
+    let user = await userRepository.getUser({ id: userId });
+    const adminRole = await roleRepository.getRole({ roleName: 'admin' });
+
+    if (!adminRole) throw new NotFoundError('Sorry, this role is not found.');
+
+    await user.removeRole(adminRole);
+    user = await userRepository.getUser({ id: userId });
+
+    return user;
   }
 }
 
