@@ -43,12 +43,6 @@ const User = sequelize.define('users', {
     allowNull: false,
     notEmpty: true,
   },
-  removeRequest: {
-    type: Sequelize.BOOLEAN,
-    field: 'remove_request',
-    defaultValue: 0,
-    allowNull: false,
-  },
 });
 
 User.prototype.validPassword = async function(password) {

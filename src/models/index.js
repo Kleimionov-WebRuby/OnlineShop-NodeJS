@@ -5,7 +5,7 @@ const Category = require('./category');
 const Product = require('./product');
 const ProductsCategories = require('./products-categories');
 const Rating = require('./rating');
-const UsersRemove = require('./user-remove');
+const Request = require('./request');
 
 module.exports = () => {
   User.belongsToMany(Role, {
@@ -44,14 +44,7 @@ module.exports = () => {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   });
-  UsersRemove.belongsTo(User, {
-    through: UsersRemove,
+  User.hasOne(Request, {
     foreignKey: 'user_id',
-    onDelete: 'cascade',
-  });
-  User.hasOne(UsersRemove, {
-    through: UsersRemove,
-    foreignKey: 'user_id',
-    onDelete: 'cascade',
   });
 };

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database');
 
-const UsersRemove = sequelize.define('users_remove', {
+const Request = sequelize.define('requests', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -17,4 +17,4 @@ const UsersRemove = sequelize.define('users_remove', {
   },
 });
 
-module.exports = UsersRemove;
+module.exports = Request;

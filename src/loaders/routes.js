@@ -3,11 +3,16 @@ const productRouter = require('../routes/product');
 const categoryRouter = require('../routes/category');
 const roleRouter = require('../routes/role');
 const userRouter = require('../routes/user');
+const ratingRouter = require('../routes/ratings');
+const requestRouter = require('../routes/request');
 
 module.exports = expressApp => {
-  expressApp.use(authRouter);
-  expressApp.use('/users', userRouter);
-  expressApp.use('/products', productRouter);
-  expressApp.use('/category', categoryRouter);
-  expressApp.use('/role', roleRouter);
+  expressApp
+    .use(authRouter)
+    .use('/users', userRouter)
+    .use('/products', productRouter)
+    .use('/category', categoryRouter)
+    .use('/role', roleRouter)
+    .use('/ratings', ratingRouter)
+    .use('/requests', requestRouter);
 };

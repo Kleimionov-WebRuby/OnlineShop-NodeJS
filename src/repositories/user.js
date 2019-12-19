@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Role = require('../models/role');
+const Request = require('../models/request');
 const { Op } = require('sequelize');
 
 class UserRepository {
@@ -32,19 +33,16 @@ class UserRepository {
       where: {
         [Op.and]: [{ ...options }],
       },
-      attributes: [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'remove_request',
-      ],
+      attributes: ['id', 'first_name', 'last_name', 'email', 'password'],
       include: [
         {
           model: Role,
           attributes: ['roleName'],
           through: { attributes: [] },
+        },
+        {
+          model: Request,
+          attributes: ['id', 'remove_at'],
         },
       ],
       limit,

@@ -21,7 +21,6 @@ CREATE TABLE `users` (
 	`last_name` varchar(255) NOT NULL,
 	`email` varchar(100) NOT NULL UNIQUE,
 	`password` varchar(255) NOT NULL,
-	`remove_request` bit NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
