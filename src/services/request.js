@@ -5,6 +5,10 @@ const RequestRepository = require('../repositories/request');
 const requestRepository = new RequestRepository();
 
 class RequestService {
+  async getAllRequests() {
+    return await requestRepository.getAll();
+  }
+
   async createRequest(userId) {
     const isRequest = await requestRepository.getRequest(userId);
 

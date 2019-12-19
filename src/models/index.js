@@ -47,4 +47,7 @@ module.exports = () => {
   User.hasOne(Request, {
     foreignKey: 'user_id',
   });
+  Request.belongsTo(User, {
+    foreignKey: 'user_id',
+  });
 };
