@@ -39,7 +39,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Create table @rating
-CREATE TABLE `rating` (
+CREATE TABLE `ratings` (
 	`id` int NOT NULL AUTO_INCREMENT,
 	`rating_value` int NOT NULL,
 	`user_id` int DEFAULT NULL,
@@ -80,9 +80,9 @@ CREATE TABLE `products_categories` (
 
 
 -- Association between tables @rating and @users
-ALTER TABLE `rating` ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL;
+ALTER TABLE `ratings` ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL;
 -- Association between tables @rating and @products
-ALTER TABLE `rating` ADD FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE;
+ALTER TABLE `ratings` ADD FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE;
 
 -- Association between tables @users and @roles
 ALTER TABLE `users_roles` ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE;

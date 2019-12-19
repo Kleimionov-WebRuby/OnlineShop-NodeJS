@@ -1,8 +1,10 @@
 const helper = require('../helpers');
 const ProductRepository = require('../repositories/product');
+const CategoryRepository = require('../repositories/category');
 const NotFoundError = require('../classes/errors/not-found-error');
 
 const productRepository = new ProductRepository();
+const categoryRepository = new CategoryRepository();
 
 class ProductService {
   async getProducts(query) {
@@ -21,7 +23,17 @@ class ProductService {
     newProduct.createdAt = new Date();
     newProduct.updatedAt = new Date();
 
-    return await productRepository.create(newProduct);
+    const createdProduct = await productRepository.create(newProduct);
+
+    if (newProduct.categories) {
+      const categories = await categoryRepository.getCategoriesByIds(
+        newProduct.categories,
+      );
+
+      await createdProduct.setCategories(categories);
+    }
+
+    return createdProduct;
   }
 
   async updateProduct(id, updatedProduct) {
@@ -35,9 +47,17 @@ class ProductService {
 
     updatedProduct.updatedAt = new Date();
 
-    await productRepository.update(id, updatedProduct);
+    if (updatedProduct.categories) {
+      await product.removeCategories(await product.getCategories());
 
-    return null;
+      const categories = await categoryRepository.getCategoriesByIds(
+        updatedProduct.categories,
+      );
+
+      await product.setCategories(categories);
+    }
+
+    return await productRepository.update(id, updatedProduct);
   }
 
   async deleteProduct(id) {
