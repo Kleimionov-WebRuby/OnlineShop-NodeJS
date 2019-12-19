@@ -46,6 +46,7 @@ module.exports = () => {
   });
   User.hasOne(Request, {
     foreignKey: 'user_id',
+    onDelete: 'cascade',
   });
   Request.belongsTo(User, {
     foreignKey: 'user_id',

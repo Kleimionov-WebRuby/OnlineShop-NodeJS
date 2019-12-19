@@ -47,7 +47,8 @@ class UserRepository {
       ],
       limit,
       offset: skip,
-      distinct: true, // Without this option I get wrong count in response. In count includes the included rows as role
+      order: [['id', 'DESC']],
+      distinct: true, // Without this option I get wrong count in response. In count includes the included rows for example as role
     };
 
     return User.findAndCountAll(sequelizeOptions);
@@ -55,6 +56,14 @@ class UserRepository {
 
   update(currentUser, newUser) {
     return currentUser.update(newUser);
+  }
+
+  delete(userId) {
+    return User.destroy({
+      where: {
+        id: userId,
+      },
+    });
   }
 }
 

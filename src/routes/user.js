@@ -12,5 +12,6 @@ router.use(isAuthorized);
 
 router.get('/', isAdmin, checkRequest(userController.getUsers));
 router.put('/', checkRequest(userController.updateUser));
+router.delete('/:userId', isAdmin, checkRequest(userController.deleteUser));
 
 module.exports = router;
