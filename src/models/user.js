@@ -43,6 +43,13 @@ const User = sequelize.define('users', {
     allowNull: false,
     notEmpty: true,
   },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    field: 'created_at',
+    isDate: true,
+    defaultValue: Date.now(),
+  },
 });
 
 User.prototype.validPassword = async function(password) {
@@ -50,6 +57,10 @@ User.prototype.validPassword = async function(password) {
 };
 
 User.beforeCreate(async user => {
+  user.password = await hash.hash(user.password);
+});
+
+User.beforeUpdate(async user => {
   user.password = await hash.hash(user.password);
 });
 
