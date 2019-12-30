@@ -5,6 +5,7 @@ const roleRouter = require('../routes/role');
 const userRouter = require('../routes/user');
 const requestRouter = require('../routes/request');
 const resetPasswordRouter = require('../routes/reset-password');
+const ratingRouter = require('../routes/rating');
 
 module.exports = expressApp => {
   expressApp
@@ -14,5 +15,6 @@ module.exports = expressApp => {
     .use('/category', categoryRouter)
     .use('/role', roleRouter)
     .use('/requests', requestRouter)
-    .use('/reset_password', resetPasswordRouter);
+    .use('/reset_password', resetPasswordRouter)
+    .use('/rating', ratingRouter);
 };

@@ -24,26 +24,9 @@ module.exports = () => {
     foreignKey: 'category_id',
     onDelete: 'cascade',
   });
-  Product.hasMany(Rating, {
-    foreignKey: 'product_id',
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-  });
-  Rating.belongsTo(Product, {
-    foreignKey: 'product_id',
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-  });
-  User.hasMany(Rating, {
-    foreignKey: 'user_id',
-    onDelete: 'set null',
-    onUpdate: 'cascade',
-  });
-  Rating.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-  });
+  User.belongsToMany(Product, { foreignKey: 'user_id', through: Rating });
+  Product.belongsToMany(User, { foreignKey: 'product_id', through: Rating });
+
   User.hasOne(Request, {
     foreignKey: 'user_id',
     onDelete: 'cascade',

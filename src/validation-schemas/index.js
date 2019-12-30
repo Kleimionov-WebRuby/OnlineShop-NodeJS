@@ -4,6 +4,7 @@ const userCreate = require('./user-create');
 const userLogin = require('./user-login');
 const category = require('./category');
 const role = require('./role');
+const ratingId = require('./rating-id');
 
 module.exports = {
   id,
@@ -12,4 +13,5 @@ module.exports = {
   userLogin,
   category,
   role,
+  ratingId,
 };

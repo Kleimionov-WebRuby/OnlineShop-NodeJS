@@ -48,7 +48,7 @@ const User = sequelize.define('users', {
     allowNull: false,
     field: 'created_at',
     isDate: true,
-    defaultValue: Date.now(),
+    defaultValue: Sequelize.NOW,
   },
 });
 
