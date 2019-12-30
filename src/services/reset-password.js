@@ -44,7 +44,7 @@ class ResetPasswordService {
     console.log(payload);
 
     if (payload.userId === user.id) {
-      user.update({ password });
+      user.update({ password }); // the hashing process is performed in the user model
     }
   }
 }

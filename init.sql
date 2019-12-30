@@ -100,7 +100,7 @@ INSERT INTO `roles` (`role_name`) VALUES ("user"), ("admin");
 INSERT INTO `users` 
 (`first_name`, `last_name`, `email`, `password`) 
 VALUES 
-("Egor", "Kleymonov", "egor@gmail.com", "$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC");
+("Egor", "Kleymonov", "egor@gmail.com", "$2a$10$vJXN9sbIz.XuFqVFzIOS9uRwDmB2Wuvf2V0n2P3whIrKCFzLXtGEO");
 
 INSERT INTO `users` 
 (`first_name`, `last_name`, `email`, `password`) 

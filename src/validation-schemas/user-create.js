@@ -1,0 +1,50 @@
+const Joi = require('@hapi/joi');
+
+module.exports = Joi.object().keys({
+  firstName: Joi.string()
+    .label('First name')
+    .min(3)
+    .max(20)
+    .regex(/^[a-zA-Z]+$/)
+    .required()
+    .messages({
+      'string.base': `Invalid type. First name must be a string`,
+      'string.empty': `Please enter your First name`,
+      'string.pattern.base': `First name must consists of letters only`,
+      'string.min': `First name should have a minimum length of {#limit}`,
+      'string.max': `First name should have a maximum length of {#limit}`,
+      'any.required': `First name is a required field`,
+    }),
+  lastName: Joi.string()
+    .label('Last name')
+    .min(3)
+    .max(30)
+    .required()
+    .messages({
+      'string.base': `Invalid type. Last name must be a string`,
+      'string.empty': `Please enter your last name`,
+      'string.min': `Last name should have a minimum length of {#limit}`,
+      'string.max': `Last name should have a maximum length of {#limit}`,
+      'any.required': `Last name is a required field`,
+    }),
+  email: Joi.string()
+    .label('Email')
+    .email()
+    .required()
+    .messages({
+      'string.base': `Invalid type. Email must be a string`,
+      'string.empty': `Please enter your email`,
+      'any.required': `Email is a required field`,
+    }),
+  password: Joi.string()
+    .label('Password')
+    .required()
+    .min(6)
+    .max(20)
+    .messages({
+      'string.empty': `Please enter your password`,
+      'string.min': `Password should have a minimum length of {#limit}`,
+      'string.max': `Password should have a maximum length of {#limit}`,
+      'any.required': `Password is a required field`,
+    }),
+});
