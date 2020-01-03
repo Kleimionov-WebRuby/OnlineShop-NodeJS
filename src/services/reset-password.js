@@ -1,7 +1,9 @@
 const UserRepository = require('../repositories/user');
 const jwt = require('jsonwebtoken');
 const NotFoundError = require('../classes/errors/not-found-error');
+const Hash = require('../classes/hash');
 
+const hash = new Hash();
 const userRepository = new UserRepository();
 
 class ResetPasswordService {
@@ -40,11 +42,10 @@ class ResetPasswordService {
 
     const secret = user.password + '-' + user.createdAt;
     const payload = jwt.verify(token, secret);
-
-    console.log(payload);
+    const newPassword = await hash.hash(password);
 
     if (payload.userId === user.id) {
-      user.update({ password }); // the hashing process is performed in the user model
+      user.update({ password: newPassword });
     }
   }
 }

@@ -60,10 +60,6 @@ User.beforeCreate(async user => {
   user.password = await hash.hash(user.password);
 });
 
-User.beforeUpdate(async user => {
-  user.password = await hash.hash(user.password);
-});
-
 User.afterCreate(async user => {
   const defaultRole = await roleRepository.getRole({ roleName: 'user' });
 
