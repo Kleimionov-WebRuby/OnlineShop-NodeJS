@@ -23,6 +23,12 @@ class UserController {
 
     res.status(204).end();
   }
+
+  async changePassword(req, res) {
+    await userService.changePassword(req.body, req.user);
+
+    res.status(204).end();
+  }
 }
 
 module.exports = UserController;

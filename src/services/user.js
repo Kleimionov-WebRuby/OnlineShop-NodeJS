@@ -3,7 +3,9 @@ const AuthenticationError = require('../classes/errors/auth-error');
 const NotFoundError = require('../classes/errors/not-found-error');
 const UserRepository = require('../repositories/user');
 const RequestRepository = require('../repositories/request');
+const Hash = require('../classes/hash');
 
+const hash = new Hash();
 const userRepository = new UserRepository();
 const requestRepository = new RequestRepository();
 
@@ -51,6 +53,21 @@ class UserService {
     }
 
     return await userRepository.delete(userId);
+  }
+
+  async changePassword(passwords, user) {
+    const { oldPassword, newPassword } = passwords;
+
+    // The comparison of passwords is performed at the joi validation
+    const isValid = await user.validPassword(oldPassword);
+
+    if (!isValid) {
+      throw new AuthenticationError("Old password isn't valid");
+    }
+
+    const hashedPassword = await hash.hash(newPassword);
+
+    return await user.update({ password: hashedPassword });
   }
 }
 

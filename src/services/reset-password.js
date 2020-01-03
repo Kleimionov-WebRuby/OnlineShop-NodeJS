@@ -45,7 +45,7 @@ class ResetPasswordService {
     const newPassword = await hash.hash(password);
 
     if (payload.userId === user.id) {
-      user.update({ password: newPassword });
+      await user.update({ password: newPassword });
     }
   }
 }
