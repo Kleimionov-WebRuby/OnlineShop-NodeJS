@@ -25,6 +25,14 @@ class UserService {
       throw new AuthenticationError('You are not authorized');
     }
 
+    if (newUser.email)
+      throw new AuthenticationError('Email change not allowed');
+
+    if (newUser.password)
+      throw new AuthenticationError(
+        'Password cannot be changed from this endpoint',
+      );
+
     return await userRepository.update(currentUser, newUser);
   }
 

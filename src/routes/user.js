@@ -10,7 +10,7 @@ const validationSchemas = require('../validation-schemas');
 const UserController = require('../controllers/user');
 const userController = new UserController();
 
-router.use(isAuthorized);
+// router.use(isAuthorized);
 
 router.get('/', isAdmin, checkRequest(userController.getUsers));
 router.put('/', checkRequest(userController.updateUser));
