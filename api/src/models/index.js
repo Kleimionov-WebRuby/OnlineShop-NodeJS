@@ -26,7 +26,6 @@ module.exports = () => {
   });
   User.belongsToMany(Product, { foreignKey: 'user_id', through: Rating });
   Product.belongsToMany(User, { foreignKey: 'product_id', through: Rating });
-
   User.hasOne(Request, {
     foreignKey: 'user_id',
     onDelete: 'cascade',

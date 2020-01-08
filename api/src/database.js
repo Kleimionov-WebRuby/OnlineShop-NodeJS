@@ -24,6 +24,7 @@ const connectToDB = async () => {
     })
     .catch(err => {
       console.error('Unable to connect to the database:', err);
+      setTimeout(connectToDB, 30000);
     });
 };
 

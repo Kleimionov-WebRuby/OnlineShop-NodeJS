@@ -21,6 +21,7 @@ CREATE TABLE `users` (
 	`last_name` varchar(255) NOT NULL,
 	`email` varchar(100) NOT NULL UNIQUE,
 	`password` varchar(255) NOT NULL,
+	`created_at` date NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -98,14 +99,14 @@ INSERT INTO `roles` (`role_name`) VALUES ("user"), ("admin");
 
 
 INSERT INTO `users` 
-(`first_name`, `last_name`, `email`, `password`) 
+(`first_name`, `last_name`, `email`, `password`, `created_at`) 
 VALUES 
-("Egor", "Kleymonov", "egor@gmail.com", "$2a$10$vJXN9sbIz.XuFqVFzIOS9uRwDmB2Wuvf2V0n2P3whIrKCFzLXtGEO");
+("Egor", "Kleymonov", "egor@gmail.com", "$2a$10$nFC1qPhCMvwukRlt79rk1u.B8i/liXSUGdJ.vlK1wKoGSlDF3ViDu", "2019-05-15 22:23:00");
 
 INSERT INTO `users` 
-(`first_name`, `last_name`, `email`, `password`) 
+(`first_name`, `last_name`, `email`, `password`, `created_at`) 
 VALUES 
-("Test", "Testing", "test@gmail.com", "$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC");
+("Test", "Testing", "test@gmail.com", "$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC", "2019-05-15 22:23:00");
 
 INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,2);
 INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,1);
@@ -115,14 +116,14 @@ INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (2,1);
 INSERT INTO `categories` (`category_name`) VALUES ("jewelry"), ("cars");
 
 INSERT INTO `products` 
-(`title`, `desc`, `price`, `picture`,`amount`) 
+(`title`, `desc`, `price`, `picture`,`amount`, `created_at`, `updated_at`) 
 VALUES 
-("Test Prouct 1", "Test Prouct 1 desc", 50.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 6);
+("Test Prouct 1", "Test Prouct 1 desc", 50.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 6, "2019-05-15 22:23:00", "2019-05-15 22:23:00");
 
 INSERT INTO `products` 
-(`title`, `desc`, `price`, `picture`,`amount`) 
+(`title`, `desc`, `price`, `picture`,`amount`, `created_at`, `updated_at`) 
 VALUES 
-("Test Prouct 2", "Test Prouct 2 desc", 510.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 2);
+("Test Prouct 2", "Test Prouct 2 desc", 510.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 2, "2019-05-15 22:23:00", "2019-05-15 22:23:00");
 
 INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (1,2);
 INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (2,1);
