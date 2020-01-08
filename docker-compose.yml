@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: online_shop
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: user
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 123
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    # Where our data will be persisted
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+  api:
+    container_name: api
+    image: node-docker
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: web
+    restart: on-failure
+    environment:
+      MYSQL_DB: online_shop
+      MYSQL_DB_USER: user
+      MYSQL_DB_PASSWORD: 123
+      MYSQL_DB_HOST: mysql
+    depends_on:
+      - mysql
+    ports:
+      - 3000:3000

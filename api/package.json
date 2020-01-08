@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node scr/app",
-    "dev": "nodemon src/app",
+    "start": "node src/index",
+    "dev": "nodemon src/index",
     "test": "mocha --timeout 10000"
   },
   "keywords": [],
