@@ -95,43 +95,39 @@ ALTER TABLE `products_categories` ADD FOREIGN KEY (`category_id`) REFERENCES `ca
 
 
 --  Insert Into for testng association between tables @users and @roles (ON DELET 'user' -> delete row with | user_id === user->id \  in table @user_roles)
-INSERT INTO `roles` (`role_name`) VALUES ("user"), ("admin");
+INSERT INTO `categories` (`category_name`) VALUES
+('cars'),
+('jewelry');
 
 
-INSERT INTO `users` 
-(`first_name`, `last_name`, `email`, `password`, `created_at`) 
-VALUES 
-("Egor", "Kleymonov", "egor@gmail.com", "$2a$10$nFC1qPhCMvwukRlt79rk1u.B8i/liXSUGdJ.vlK1wKoGSlDF3ViDu", "2019-05-15 22:23:00");
+INSERT INTO `products` (`title`, `desc`, `price`, `picture`, `amount`, `updated_at`, `created_at`) VALUES
+('Test Prouct 1', 'Test Prouct 1 desc', 50.5, 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1', 6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('Test Prouct 2', 'Test Prouct 2 desc', 510.5, 'https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
-INSERT INTO `users` 
-(`first_name`, `last_name`, `email`, `password`, `created_at`) 
-VALUES 
-("Test", "Testing", "test@gmail.com", "$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC", "2019-05-15 22:23:00");
+INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 2);
 
-INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,2);
-INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (1,1);
-INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES (2,1);
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `created_at`) VALUES
+('Egor', 'Kleymonov', 'egor@gmail.com', '$2a$10$y8WxBnbbNTwHU5BQ4Kn3r.9RtpPh2oxR.kPyMboNTmgOa7/TVz5ya', '0000-00-00 00:00:00'),
+('Test', 'Testing', 'test@gmail.com', '$2a$10$At8koV4DfdoYpJ79CG0YHuwGbqU6zGrKYa/dSnuxzO3UsUIjpLteC', '0000-00-00 00:00:00'),
+('Petay', 'Ivanov', 'petay-ivanov@gmail.com', '$2a$10$E4ffehoRzr/3PT3sEX4hGu8tPA9gO5Pr8a5blrhAcr5pkV99Z4WY6', '2020-01-03 07:16:28');
 
---  Insert Into for testng association between tables @products and @categories (ON DELET 'product' -> delete row with | product_id === product->id \  in table @product_categories)
-INSERT INTO `categories` (`category_name`) VALUES ("jewelry"), ("cars");
+INSERT INTO `ratings` (`rating_value`, `user_id`, `product_id`) VALUES
+(2, 2, 1),
+(2, 2, 2),
+(5, 1, 1),
+(5, 1, 2);
 
-INSERT INTO `products` 
-(`title`, `desc`, `price`, `picture`,`amount`, `created_at`, `updated_at`) 
-VALUES 
-("Test Prouct 1", "Test Prouct 1 desc", 50.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 6, "2019-05-15 22:23:00", "2019-05-15 22:23:00");
+INSERT INTO `roles` (`role_name`) VALUES
+('admin'),
+('user');
 
-INSERT INTO `products` 
-(`title`, `desc`, `price`, `picture`,`amount`, `created_at`, `updated_at`) 
-VALUES 
-("Test Prouct 2", "Test Prouct 2 desc", 510.5, "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", 2, "2019-05-15 22:23:00", "2019-05-15 22:23:00");
+INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(3, 1);
 
-INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (1,2);
-INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (2,1);
-INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (2,2);
-INSERT INTO `products_categories` (`product_id`, `category_id`) VALUES (1,1);
-
-
-INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (2,1,2);
-INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (5,2,1);
-INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (2,2,2);
-INSERT INTO `ratings` (`rating_value`, `product_id`, `user_id`) VALUES (5,1,1);
