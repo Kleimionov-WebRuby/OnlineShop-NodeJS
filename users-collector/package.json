@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cron": "^1.7.2",
     "mysql2": "^2.1.0",
+    "node-cron": "^2.0.3",
     "sequelize": "^5.21.3"
   },
   "devDependencies": {
