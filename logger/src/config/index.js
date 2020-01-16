@@ -1,3 +1,3 @@
 module.exports = {
-  databaseUrl: 'mongodb://localhost:27017/shop_logger',
+  databaseUrl: process.env.MONGO_URI,
 };

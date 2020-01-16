@@ -46,3 +46,19 @@ services:
       NODE_ENV: production
     depends_on:
       - mysql
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+  logger:
+    container_name: logger
+    image: logger
+    build:
+      context: ./logger
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      - MONGO_URI=mongodb://mongo/shop_logger
+    depends_on:
+      - mongo
