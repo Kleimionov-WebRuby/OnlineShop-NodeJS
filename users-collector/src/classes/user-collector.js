@@ -1,4 +1,6 @@
 const Request = require('../models/request');
+const RabbitMQ = require('./rabbit');
+const logConfig = require('../config/logs-config');
 
 class UserCollector {
   async deleteUser() {
@@ -9,6 +11,11 @@ class UserCollector {
 
       if (dateNow > request.removeAt) {
         const user = await request.getUser();
+
+        RabbitMQ.sendToLogger({
+          logType: logConfig.logTypes.logs,
+          message: `User with id: ${user.id} was delete, because he send remove request more than 30 days ago`,
+        });
 
         user.destroy();
       }

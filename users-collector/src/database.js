@@ -1,14 +1,16 @@
 const env = process.env.NODE_ENV || 'development';
-const config = require('./config')[env];
+const configDB = require('./config')[env];
+const logConfig = require('./config/logs-config');
 const Sequelize = require('sequelize');
+const RabbitMQ = require('./classes/rabbit');
 
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
+  configDB.database,
+  configDB.username,
+  configDB.password,
   {
-    host: config.host,
-    dialect: config.dialect,
+    host: configDB.host,
+    dialect: configDB.dialect,
     define: {
       timestamps: false,
     },
@@ -19,11 +21,18 @@ const connectToDB = async () => {
   await sequelize
     .authenticate()
     .then(() => {
-      console.log('Connection has been established successfully.');
+      RabbitMQ.sendToLogger({
+        logType: logConfig.logTypes.logs,
+        message:
+          'Connection has been established successfully. | mysql/users-collector',
+      });
       sequelize.sync({ logging: false });
     })
     .catch(err => {
-      console.error('Unable to connect to the database:', err);
+      RabbitMQ.sendToLogger({
+        logType: logConfig.logTypes.error,
+        message: `Unable to connect to the database | mysql/users-collector: ${err}`,
+      });
       setTimeout(connectToDB, 30000);
     });
 };

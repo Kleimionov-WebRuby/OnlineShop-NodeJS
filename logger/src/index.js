@@ -3,6 +3,8 @@ const config = require('./config');
 const Logger = require('./classes/logger');
 const logger = new Logger();
 
+const RabbitMQ = require('./classes/rabbit');
+
 mongoose.connect(config.databaseUrl, {
   useNewUrlParser: true,
   // useUnifiedTopology: true,
@@ -11,10 +13,9 @@ mongoose.connect(config.databaseUrl, {
 const db = mongoose.connection;
 
 db.once('open', () => {
-  console.log('SUCCESSFULLY');
-  logger.logInfo(`Connection has been made successfully.`);
+  logger.logInfo(`Connection has been made successfully. | logger.`);
+  RabbitMQ.run();
 });
 db.on('error', error => {
-  console.log('ERROR');
   logger.logError(error);
 });
