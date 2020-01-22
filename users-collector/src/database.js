@@ -24,14 +24,14 @@ const connectToDB = async () => {
       RabbitMQ.sendToLogger({
         logType: logConfig.logTypes.logs,
         message:
-          'Connection has been established successfully. | mysql/users-collector',
+          'Connection has been established successfully. | database/users-collector',
       });
       sequelize.sync({ logging: false });
     })
     .catch(err => {
       RabbitMQ.sendToLogger({
         logType: logConfig.logTypes.error,
-        message: `Unable to connect to the database | mysql/users-collector: ${err}`,
+        message: `Unable to connect to the database | database/users-collector: ${err}`,
       });
       setTimeout(connectToDB, 30000);
     });

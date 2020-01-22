@@ -1,4 +1,6 @@
 module.exports = {
+  rabbitUrl: process.env.rabbitURL,
+  logsQueue: 'shop-logs-queue',
   port: process.env.PORT || 3000,
   production: {
     username: process.env.MYSQL_DB_USER,

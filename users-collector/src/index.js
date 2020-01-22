@@ -7,28 +7,29 @@ const logConfig = require('./config/logs-config');
 const UserCollector = require('./classes/user-collector');
 const userCollector = new UserCollector();
 
-const runUsersCollector = async () => {
-  try {
-    await RabbitMQ.run();
-    await database.connectToDB();
-    initModels();
-
+RabbitMQ.run()
+  .then(async () => {
     try {
-      const job = new CronJob('00 21 12 * * 0-6', userCollector.deleteUser);
+      await database.connectToDB();
+      initModels();
 
-      job.start();
+      try {
+        const job = new CronJob('00 21 12 * * 0-6', userCollector.deleteUser);
+
+        job.start();
+      } catch (err) {
+        RabbitMQ.sendToLogger({
+          logType: logConfig.logTypes.error,
+          message: err,
+        });
+      }
     } catch (err) {
       RabbitMQ.sendToLogger({
         logType: logConfig.logTypes.error,
         message: err,
       });
     }
-  } catch (err) {
-    RabbitMQ.sendToLogger({
-      logType: logConfig.logTypes.error,
-      message: err,
-    });
-  }
-};
-
-runUsersCollector();
+  })
+  .catch(err => {
+    console.log(err);
+  });

@@ -71,6 +71,5 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3307:3306
-    # Where our data will be persisted
     volumes:
       - ./volumes/mysql:/var/lib/mysql

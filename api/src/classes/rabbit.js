@@ -8,6 +8,7 @@ class RabbitMQ {
         if (error0) {
           reject(error0);
         }
+
         connection.createChannel((error1, channel) => {
           if (error1) {
             reject(error1);
@@ -17,6 +18,7 @@ class RabbitMQ {
           channel.assertQueue(config.logsQueue, {
             durable: true,
           });
+          console.log('CONNECTION OK');
 
           resolve();
         });
