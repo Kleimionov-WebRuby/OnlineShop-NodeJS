@@ -49,6 +49,21 @@ services:
     depends_on:
       - mongo
       - rabbitmq
+  mailer:
+    container_name: mailer
+    image: mailer
+    build:
+      context: ./mailer
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      rabbitURL: amqp://rabbitmq
+      MAILER_USER: kleimionovweb@gmail.com
+      MAILER_PASSWORD: 123456Egor
+      MAILER_SERVICE: Gmail
+      MAILER_SUBJECT: Online Shop notification
+    depends_on:
+      - rabbitmq
   mongo:
     container_name: mongo
     image: mongo
