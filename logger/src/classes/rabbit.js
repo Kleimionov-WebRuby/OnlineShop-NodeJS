@@ -7,7 +7,6 @@ const logger = new Logger();
 class RabbitMQ {
   run() {
     amqp.connect(config.rabbitUrl, (error0, connection) => {
-      console.log(config.rabbitUrl);
       if (error0) {
         throw new Error(error0);
       }

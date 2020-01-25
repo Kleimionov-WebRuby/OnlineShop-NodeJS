@@ -18,7 +18,6 @@ class RabbitMQ {
           channel.assertQueue(config.logsQueue, {
             durable: true,
           });
-          console.log('CONNECTION OK');
 
           resolve();
         });
@@ -29,6 +28,13 @@ class RabbitMQ {
   sendToLogger(message) {
     this.channel.sendToQueue(
       config.logsQueue,
+      Buffer.from(JSON.stringify(message)),
+    );
+  }
+
+  sendToMailer(message) {
+    this.channel.sendToQueue(
+      config.mailerQueue,
       Buffer.from(JSON.stringify(message)),
     );
   }
