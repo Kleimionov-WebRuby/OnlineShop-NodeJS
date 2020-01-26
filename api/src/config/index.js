@@ -1,4 +1,7 @@
 module.exports = {
+  rabbitUrl: process.env.rabbitURL,
+  logsQueue: 'shop-logs-queue',
+  mailerQueue: 'shop-mailer-queue',
   port: process.env.PORT || 3000,
   production: {
     username: process.env.MYSQL_DB_USER,
@@ -6,7 +9,6 @@ module.exports = {
     database: process.env.MYSQL_DB,
     host: process.env.MYSQL_DB_HOST || 'localhost',
     dialect: 'mysql',
-    operatorsAliases: false,
   },
   development: {
     username: process.env.DB_USERNAME,
@@ -14,6 +16,5 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.MYSQL_DB_HOST || 'localhost',
     dialect: 'mysql',
-    operatorsAliases: false,
   },
 };
