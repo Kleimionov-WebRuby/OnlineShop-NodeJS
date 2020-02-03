@@ -1,5 +1,5 @@
 const express = require('express');
-const isAuthorized = require('../middlewares/is-authorized');
+const isAuthenticated = require('../middlewares/is-authenticated');
 const isAdmin = require('../middlewares/is-admin');
 const checkRequest = require('../middlewares/check-request');
 const validate = require('../middlewares/validator');
@@ -10,7 +10,7 @@ const router = express.Router();
 const RoleController = require('../controllers/role');
 const roleController = new RoleController();
 
-router.use(isAuthorized);
+router.use(isAuthenticated);
 
 router.get('/', isAdmin, checkRequest(roleController.getRoles));
 router.post(
@@ -26,13 +26,13 @@ router.delete(
   checkRequest(roleController.deleteRole),
 );
 router.post(
-  '/putrole/:userId',
+  '/put-role/:userId',
   isAdmin,
   validate({ params: validationSchemas.id }),
   checkRequest(roleController.putRoleAdmin),
 );
 router.delete(
-  '/removerole/:userId',
+  '/remove-role/:userId',
   isAdmin,
   validate({ params: validationSchemas.id }),
   checkRequest(roleController.removeRoleAdmin),

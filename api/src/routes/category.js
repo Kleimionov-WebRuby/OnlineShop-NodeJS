@@ -1,5 +1,5 @@
 const express = require('express');
-const isAuthorized = require('../middlewares/is-authorized');
+const isAuthenticated = require('../middlewares/is-authenticated');
 const isAdmin = require('../middlewares/is-admin');
 const checkRequest = require('../middlewares/check-request');
 const validate = require('../middlewares/validator');
@@ -10,7 +10,7 @@ const router = express.Router();
 const CategoryController = require('../controllers/category');
 const categoryController = new CategoryController();
 
-router.use(isAuthorized);
+router.use(isAuthenticated);
 
 router.get('/', isAdmin, checkRequest(categoryController.getCategories));
 router.post(

@@ -1,5 +1,5 @@
 const express = require('express');
-const isAuthorized = require('../middlewares/is-authorized');
+const isAuthenticated = require('../middlewares/is-authenticated');
 const isAdmin = require('../middlewares/is-admin');
 const checkRequest = require('../middlewares/check-request');
 const router = express.Router();
@@ -9,7 +9,7 @@ const validationSchemas = require('../validation-schemas');
 const ProductController = require('../controllers/product');
 const productController = new ProductController();
 
-router.use(isAuthorized);
+router.use(isAuthenticated);
 
 router.get('/', checkRequest(productController.getProducts));
 router.post(
