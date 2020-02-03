@@ -13,16 +13,9 @@ RabbitMQ.run()
       await database.connectToDB();
       initModels();
 
-      try {
-        const job = new CronJob('00 21 12 * * 0-6', userCollector.deleteUser);
+      const job = new CronJob('00 21 12 * * 0-6', userCollector.deleteUser);
 
-        job.start();
-      } catch (err) {
-        RabbitMQ.sendToLogger({
-          logType: logConfig.logTypes.error,
-          message: err,
-        });
-      }
+      job.start();
     } catch (err) {
       RabbitMQ.sendToLogger({
         logType: logConfig.logTypes.error,
