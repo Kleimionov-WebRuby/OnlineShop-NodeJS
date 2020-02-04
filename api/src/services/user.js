@@ -15,7 +15,7 @@ class UserService {
   }
 
   async getUsers(query) {
-    const queryCopy = JSON.parse(JSON.stringify(query));
+    const queryCopy = helper.copyObject(query);
 
     const { pagination } = helper.carvePaginationFromQuery(queryCopy);
 

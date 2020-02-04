@@ -8,7 +8,7 @@ const categoryRepository = new CategoryRepository();
 
 class ProductService {
   async getProducts(query) {
-    const queryCopy = JSON.parse(JSON.stringify(query));
+    const queryCopy = helper.copyObject(query);
 
     const { pagination } = helper.carvePaginationFromQuery(queryCopy);
     const { categories } = helper.carveSpecificFieldFromQuery(

@@ -1,4 +1,4 @@
-const carveSpecificFieldFromQuery = (query, searchingField) => {
+exports.carveSpecificFieldFromQuery = (query, searchingField) => {
   const result = {
     [searchingField]: query[searchingField],
   };
@@ -8,7 +8,7 @@ const carveSpecificFieldFromQuery = (query, searchingField) => {
   return result;
 };
 
-const carvePaginationFromQuery = query => {
+exports.carvePaginationFromQuery = query => {
   const { page, size } = query;
   const pagination = {
     page: Number(page),
@@ -21,4 +21,6 @@ const carvePaginationFromQuery = query => {
   return { pagination };
 };
 
-module.exports = { carvePaginationFromQuery, carveSpecificFieldFromQuery };
+exports.copyObject = object => {
+  return JSON.parse(JSON.stringify(object));
+};
