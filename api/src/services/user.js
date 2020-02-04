@@ -14,6 +14,10 @@ class UserService {
     return await userRepository.create(user);
   }
 
+  async getUser(data) {
+    return await userRepository.getUser(data);
+  }
+
   async getUsers(query) {
     const queryCopy = helper.copyObject(query);
 

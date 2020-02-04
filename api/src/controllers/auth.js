@@ -1,5 +1,6 @@
 const UserService = require('../services/user');
 const AuthenticationError = require('../classes/errors/auth-error');
+const InternalServerError = require('../classes/errors/server-error');
 
 const userService = new UserService();
 
@@ -9,6 +10,12 @@ class AuthController {
   }
 
   async registration(req, res, next) {
+    const isUserExist = await userService.getUser({ email: req.body.email });
+
+    if (isUserExist) {
+      throw new InternalServerError('This user is already exists!', 400);
+    }
+
     const user = await userService.create(req.body);
 
     await req.login(user, err => {
