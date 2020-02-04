@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 const config = require('../config');
-const logConfig = require('../config/logs-config');
+const constants = require('../constants');
 const Logger = require('../classes/logger');
 const logger = new Logger();
 
@@ -29,10 +29,10 @@ class RabbitMQ {
             );
 
             switch (logType) {
-              case logConfig.logTypes.logs:
+              case constants.logTypes.logs:
                 logger.logInfo(message);
                 break;
-              case logConfig.logTypes.error:
+              case constants.logTypes.error:
                 logger.logError(message);
                 break;
               default:

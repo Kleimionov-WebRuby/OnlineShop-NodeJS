@@ -2,7 +2,7 @@ const database = require('./database');
 const initModels = require('./models');
 const server = require('./server');
 const RabbitMQ = require('./classes/rabbit');
-const logConfig = require('./config/logs-config');
+const constants = require('./constants');
 
 RabbitMQ.run()
   .then(async () => {
@@ -12,7 +12,7 @@ RabbitMQ.run()
       server.start();
     } catch (err) {
       RabbitMQ.sendToLogger({
-        logType: logConfig.logTypes.error,
+        logType: constants.logTypes.error,
         message: err,
       });
     }

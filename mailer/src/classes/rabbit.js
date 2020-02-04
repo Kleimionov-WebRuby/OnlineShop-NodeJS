@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 const config = require('../config');
-const logConfig = require('../config/logs-config');
+const constants = require('../constants');
 const Mailer = require('./mailer');
 
 class RabbitMQ {
@@ -25,7 +25,7 @@ class RabbitMQ {
           });
 
           this.sendToLogger({
-            logType: logConfig.logTypes.logs,
+            logType: constants.logTypes.logs,
             message: 'Mailer is waiting for message',
           });
 
@@ -39,13 +39,13 @@ class RabbitMQ {
               Mailer.sendMail(message, receiver)
                 .then(() => {
                   this.sendToLogger({
-                    logType: logConfig.logTypes.logs,
+                    logType: constants.logTypes.logs,
                     message: `Message to ${receiver} was send successfully`,
                   });
                 })
                 .catch(error => {
                   this.sendToLogger({
-                    logType: logConfig.logTypes.error,
+                    logType: constants.logTypes.error,
                     message: `Mailer get error: ${error}`,
                   });
                 });

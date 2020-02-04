@@ -1,5 +1,6 @@
 const AccessError = require('../classes/errors/access-error');
 const InternalServerError = require('../classes/errors/server-error');
+const constants = require('../constants');
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,7 +8,7 @@ module.exports = async (req, res, next) => {
     let isAdmin = false;
 
     rolesArray.forEach(role => {
-      if (role.roleName === 'admin') {
+      if (role.roleName === constants.user.roles.admin) {
         isAdmin = true;
       }
     });

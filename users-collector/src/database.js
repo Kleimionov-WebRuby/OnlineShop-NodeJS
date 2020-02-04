@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV || 'development';
 const configDB = require('./config')[env];
-const logConfig = require('./config/logs-config');
+const constants = require('./constants');
 const Sequelize = require('sequelize');
 const RabbitMQ = require('./classes/rabbit');
 
@@ -22,7 +22,7 @@ const connectToDB = async () => {
     .authenticate()
     .then(() => {
       RabbitMQ.sendToLogger({
-        logType: logConfig.logTypes.logs,
+        logType: constants.logTypes.logs,
         message:
           'Connection has been established successfully. | database/users-collector',
       });
@@ -30,7 +30,7 @@ const connectToDB = async () => {
     })
     .catch(err => {
       RabbitMQ.sendToLogger({
-        logType: logConfig.logTypes.error,
+        logType: constants.logTypes.error,
         message: `Unable to connect to the database | database/users-collector: ${err}`,
       });
       setTimeout(connectToDB, 30000);

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config')[env];
-const logConfig = require('./config/logs-config');
+const constants = require('./constants');
 const RabbitMQ = require('./classes/rabbit');
 
 const sequelize = new Sequelize(
@@ -22,19 +22,19 @@ const connectToDB = async () => {
     .authenticate()
     .then(() => {
       RabbitMQ.sendToLogger({
-        logType: logConfig.logTypes.logs,
+        logType: constants.logTypes.logs,
         message: `Connection has been established successfully. | database/api`,
       });
       sequelize.sync({ logging: false }).then(() =>
         RabbitMQ.sendToLogger({
-          logType: logConfig.logTypes.logs,
+          logType: constants.logTypes.logs,
           message: `Syncing was successful | database/api`,
         }),
       );
     })
     .catch(err => {
       RabbitMQ.sendToLogger({
-        logType: logConfig.logTypes.error,
+        logType: constants.logTypes.error,
         message: `Unable to connect to the database | database/api: ${err}`,
       });
       setTimeout(connectToDB, 40000);
