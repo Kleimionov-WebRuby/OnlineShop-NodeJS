@@ -4,13 +4,13 @@ const config = require('../config');
 class RabbitMQ {
   run() {
     return new Promise((resolve, reject) => {
-      amqp.connect(config.rabbitUrl, (error0, connection) => {
-        if (error0) {
-          reject(error0);
+      amqp.connect(config.rabbitUrl, (connection_error, connection) => {
+        if (connection_error) {
+          reject(connection_error);
         }
-        connection.createChannel((error1, channel) => {
-          if (error1) {
-            reject(error1);
+        connection.createChannel((channel_error, channel) => {
+          if (channel_error) {
+            reject(channel_error);
           }
 
           this.channel = channel;

@@ -6,13 +6,13 @@ const logger = new Logger();
 
 class RabbitMQ {
   run() {
-    amqp.connect(config.rabbitUrl, (error0, connection) => {
-      if (error0) {
-        throw new Error(error0);
+    amqp.connect(config.rabbitUrl, (connection_error, connection) => {
+      if (connection_error) {
+        throw new Error(connection_error);
       }
-      connection.createChannel((error1, channel) => {
-        if (error1) {
-          throw new Error(error1);
+      connection.createChannel((channel_error, channel) => {
+        if (channel_error) {
+          throw new Error(channel_error);
         }
 
         channel.assertQueue(config.logsQueue, {
