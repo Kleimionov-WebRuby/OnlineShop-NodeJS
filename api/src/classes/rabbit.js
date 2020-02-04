@@ -14,7 +14,7 @@ class RabbitMQ {
             reject(channel_error);
           }
 
-          this.channel = channel;
+          this._channel = channel;
           channel.assertQueue(config.logsQueue, {
             durable: true,
           });
@@ -26,14 +26,14 @@ class RabbitMQ {
   }
 
   sendToLogger(message) {
-    this.channel.sendToQueue(
+    this._channel.sendToQueue(
       config.logsQueue,
       Buffer.from(JSON.stringify(message)),
     );
   }
 
   sendToMailer(message) {
-    this.channel.sendToQueue(
+    this._channel.sendToQueue(
       config.mailerQueue,
       Buffer.from(JSON.stringify(message)),
     );

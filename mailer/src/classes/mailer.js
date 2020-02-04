@@ -13,7 +13,7 @@ class Mailer {
         },
       });
 
-      this.transporter = transporter;
+      this._transporter = transporter;
 
       resolve();
     });
@@ -28,7 +28,7 @@ class Mailer {
         html: message,
       };
 
-      this.transporter.sendMail(mailOptions, (err, info) => {
+      this._transporter.sendMail(mailOptions, (err, info) => {
         if (err) reject(err);
         else resolve(info);
       });
